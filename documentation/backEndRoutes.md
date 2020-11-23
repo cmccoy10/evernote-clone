@@ -18,6 +18,10 @@
 	* Updates a note based off it's id and returns that note object
 * /api/notes/:noteId (DELETE)
 	* Deletes a note based off it's id
+* /api/notes/:noteId/tags (POST)
+	* Creates a new tag if it doesn't already exist and returns the tag with the note object
+* /api/notes/:noteId/tags/tagId (DELETE)
+	* Removes the relationship between the note and the tag based off the id
 * /api/notebooks (GET)
 	* Get all notebooks associated to the current user
 * /api/notebooks (POST)
@@ -34,7 +38,3 @@
 	* Edits a tag based off it's id
 * /api/tags/:id (DELETE)
 	* Deletes a tag based off it's id (cascades to the NoteTag join table)
-* /api/notes/:noteId/tags (POST)
-	* Creates a new tag if it doesn't already exist and returns the tag with the note object
-* /api/notes/:noteId/tags/tagId (DELETE)
-	* Removes the relationship between the note and the tag based off the id
