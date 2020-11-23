@@ -1,4 +1,4 @@
-# Forevernote MVP
+# Clevernote MVP
 
 1. Notebook
 	* Generates new notebook at user's creation and can't delete it

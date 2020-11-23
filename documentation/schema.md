@@ -1,4 +1,4 @@
-# Forevernote Data Schema
+# Clevernote Data Schema
 
 users
 -----
