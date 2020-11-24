@@ -1,7 +1,4 @@
 {
-    authentication: {
-
-    },
     user: {
         id,
         first_name,
