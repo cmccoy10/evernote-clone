@@ -3,6 +3,7 @@ from wtforms.fields import (
     StringField, IntegerField
 )
 from wtforms.validators import DataRequired
+from app.models import Tag
 
 
 def tag_exists(form, field):

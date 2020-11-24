@@ -10,3 +10,12 @@ class Notebook(db.Model):
     is_default = db.Column(db.Boolean, default=False)
 
     notes = db.relationship("Note", back_populates="notebook")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "owner_id": self.owner_id,
+            "is_default": self.is_default,
+            "notes": self.notes
+        }
