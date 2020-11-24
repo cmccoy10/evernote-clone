@@ -9,7 +9,8 @@ class Notebook(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     is_default = db.Column(db.Boolean, default=False)
 
-    notes = db.relationship("Note", back_populates="notebook")
+    notes = db.relationship(
+        "Note", back_populates="notebook", cascade="all, delete")
 
     def to_dict(self):
         return {

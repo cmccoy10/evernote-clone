@@ -3,6 +3,7 @@ from wtforms.fields import (
     StringField, IntegerField
 )
 from wtforms.validators import DataRequired, ValidationError
+from flask_login import current_user
 from app.models import Tag
 
 
