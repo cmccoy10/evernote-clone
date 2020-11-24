@@ -1,3 +1,6 @@
 {
-    "python.pythonPath": "/Users/ColeM/Desktop/appAcademy/evernote-clone-project/evernote-clone/.venv/bin/python3.8"
+    "python.pythonPath": "/Users/Jessica/Desktop/evernote-clone/.venv/bin/python3.8",
+    "python.linting.pylintEnabled": false,
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.enabled": true
 }
