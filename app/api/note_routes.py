@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request, Response
 from flask_login import login_required
-from app.models import Note, db
+from app.models import Note, Tag, note_tag, db
 from flask_login import current_user
-from app.forms import NoteForm, NoteUpdateForm
+from app.forms import NoteForm, NoteUpdateForm, TagForm
 from app.api.auth_routes import validation_errors_to_error_messages
 
 note_routes = Blueprint('notes', __name__)
@@ -59,3 +59,24 @@ def update_note(id):
         note.body = form.data['body']
         db.session.commit()
         return note.to_dict()
+
+### Still in progress
+@note_routes.route('/<int:id>/tags', methods=["POST"])
+@login_required
+def create_note_tag(id):
+    form = TagForm()
+    tag_name = form.data['name']
+
+    tag = Tag.query.get(1)
+    print("---------------\n", tag.to_dict(), "\n--------------")
+    # if tag:
+
+
+
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    # if form.validate_on_submit():
+    #     note = Note.query.get(id)
+    #     note.title = form.data['title']
+    #     note.body = form.data['body']
+    #     db.session.commit()
+    #     return note.to_dict()
