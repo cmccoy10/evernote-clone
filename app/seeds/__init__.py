@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .notes import seed_notes, undo_notes
 from .notebooks import seed_notebooks, undo_notebooks
 from .tags import seed_tags, undo_tags
+from .note_tags import seed_note_tags, undo_note_tags
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -17,6 +18,8 @@ def seed():
     seed_notebooks()
     seed_notes()
     seed_tags()
+    seed_note_tags()
+
     # Add other seed functions here
 
 # Creates the `flask seed undo` command
@@ -28,4 +31,5 @@ def undo():
     undo_notebooks()
     undo_tags()
     undo_users()
+    undo_note_tags()
     # Add other undo functions here
