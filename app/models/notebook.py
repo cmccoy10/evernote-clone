@@ -18,5 +18,5 @@ class Notebook(db.Model):
             "title": self.title,
             "owner_id": self.owner_id,
             "is_default": self.is_default,
-            "notes": self.notes
+            # "notes": self.notes
         }
