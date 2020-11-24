@@ -9,8 +9,9 @@ from app.models import Tag
 
 def tag_exists(form, field):
     tag_name = field.data
-    tag_name = Tag.query.filter(Tag.name == tag_name and Tag.user_id == current_user.id).first()
-    if tag_name:
+    tag_name_exists = Tag.query.filter_by(
+        Tag.name == tag_name, Tag.user_id == current_user.id).first()
+    if tag_name_exists:
         raise ValidationError("Tag name already present.")
 
 
