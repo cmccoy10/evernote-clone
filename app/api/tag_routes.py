@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import relationship, sessionmaker, joinedload
 from app.models import db, Tag, User, Note, Notebook
-from app.froms import TagForm
+from app.forms import TagForm
 
 tag_routes = Blueprint('tags', __name__)
 
@@ -20,7 +20,7 @@ def validation_errors_to_error_messages(validation_errors):
 def load_tags():
     user_id = current_user.get_id()
     tags = Tag.query.filter_by(Tag.user_id == user_id).all()
-    return { 'tags': [tag.to_dict() for tag in tags] }
+    return {'tags': [tag.to_dict() for tag in tags]}
 
 
 @tag_routes.route('/', methods=['POST'])
@@ -37,7 +37,7 @@ def make_new_tag():
         db.session.add(new_tag)
         db.session.commit()
         return new_tag.to_dict()
-    return { 'errors': validation_errors_to_error_messages(form.errors) }
+    return {'errors': validation_errors_to_error_messages(form.errors)}
 
 
 @tag_routes.route('/<int:tag_id>', methods=['PUT'])
@@ -51,7 +51,7 @@ def edit_tag(tag_id):
         tag.name = form.data['name']
         db.session.commit()
         return tag.to_dict()
-    return { 'errors': validation_errors_to_error_messages(form.errors) }
+    return {'errors': validation_errors_to_error_messages(form.errors)}
 
 
 @tag_routes.route('/<int:tag_id>', methods=['DELETE'])
@@ -62,6 +62,6 @@ def delete_tag(tag_id):
         tag = Tag.query.get(tag_id)
         db.session.delete(tag)
         db.session.commit()
-        return { 'message': 'Tag successfully deleted.'}
+        return {'message': 'Tag successfully deleted.'}
     except:
-        return { 'error': 'Tag not found.' }
+        return {'error': 'Tag not found.'}
