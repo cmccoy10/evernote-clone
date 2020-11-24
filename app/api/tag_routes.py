@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import relationship, sessionmaker, joinedload
 from app.models import db, Tag, User, Note, Notebook
-from app.froms import TagForm
+from app.forms import TagForm
 
 tag_routes = Blueprint('tags', __name__)
 

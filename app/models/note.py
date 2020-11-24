@@ -31,3 +31,14 @@ class Note(db.Model):
             "updated_on": self.created_on,
             "tags": self.tags
         }
+
+    def to_dict_no_tags(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "body": self.body,
+            "user_id": self.user_id,
+            "notebook_id": self.notebook_id,
+            "created_on": self.created_on,
+            "updated_on": self.created_on,
+        }
