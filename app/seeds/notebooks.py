@@ -16,5 +16,5 @@ def seed_notebooks():
 
 
 def undo_notebooks():
-    db.session.execute('TRUNCATE notebooks;')
+    db.session.execute('TRUNCATE notebooks RESTART IDENTITY CASCADE')
     db.session.commit()

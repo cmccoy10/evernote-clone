@@ -36,5 +36,5 @@ def seed_notes():
 
 
 def undo_notes():
-    db.session.execute('TRUNCATE notes;')
+    db.session.execute('TRUNCATE notes RESTART IDENTITY CASCADE;')
     db.session.commit()
