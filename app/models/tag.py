@@ -16,5 +16,5 @@ class Tag(db.Model):
             "id": self.id,
             "name": self.name,
             "user_id": self.user_id,
-            "notes": self.notes
+            "notes": [note.id for note in self.notes]
         }
