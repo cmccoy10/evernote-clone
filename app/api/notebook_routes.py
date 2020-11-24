@@ -1,3 +1,4 @@
+from app.models import notebook
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.sql.sqltypes import JSON
@@ -18,9 +19,8 @@ def notebooks():
     user_id = user
     try:
         notebooks = Notebook.query.filter_by(owner_id=user_id)
-        # deleted note form to_dict method
-        return jsonify(notebooks=[notebook.to_dict()
-                                  for notebook in notebooks])
+        return jsonify(notebooks=[notebook.to_dict() for notebook
+                                  in notebooks])
     except SQLAlchemyError as e:
         return jsonify(error={'msg': 'Error ocurred while accessing db'})
 
@@ -35,7 +35,7 @@ def create_notebook():
     is_default = True if title == 'Untitled' else False
     try:
         notebook = Notebook(owner_id=user_id, title=title,
-                            is_default=is_default, notes=[])
+                            is_default=is_default)
         db.session.add(notebook)
         db.session.commit()
         return jsonify(notebook=[notebook.to_dict()])
