@@ -1,5 +1,4 @@
 {
-    "python.pythonPath": "/Users/ColeM/.pyenv/shims/python",
     "python.linting.pylintEnabled": false,
     "python.linting.pycodestyleEnabled": true,
     "python.linting.enabled": true
