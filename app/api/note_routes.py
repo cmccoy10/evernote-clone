@@ -45,7 +45,7 @@ def delete_note(id):
         db.session.commit()
         return "Successful"
     except:
-        return {"error": "Note does not exist"}
+        return {"errors": ["Note does not exist"]}
 
 
 @note_routes.route('/<int:id>', methods=["PUT"])
@@ -60,16 +60,16 @@ def update_note(id):
         db.session.commit()
         return note.to_dict()
 
-### Still in progress
+
 @note_routes.route('/<int:id>/tags', methods=["POST"])
-# @login_required
+@login_required
 def create_note_tag(id):
     form = NoteTagForm()
     user_id = current_user.get_id()
-    form['user_id'].data = 1 #user_id
+    form['user_id'].data = user_id
     form['csrf_token'].data = request.cookies['csrf_token']
     tag_name = form.data['name']
-    tag = Tag.query.filter_by(name = tag_name, user_id = 1).first()
+    tag = Tag.query.filter_by(name = tag_name, user_id = user_id).first()
 
     if tag:
         note = Note.query.get(id)
@@ -87,3 +87,13 @@ def create_note_tag(id):
             db.session.add(new_tag)
             db.session.commit()
             return new_tag.to_dict()
+
+
+@note_routes.route('/<int:note_id>/tags/<int:tag_id>', methods=["DELETE"])
+@login_required
+def delete_note_tag(note_id, tag_id):
+    note = Note.query.get(note_id)
+    tag = Tag.query.get(tag_id)
+    tag.notes.remove(note)
+    db.session.commit()
+    return {"message":"Successful"}
