@@ -16,13 +16,14 @@ def get_notes():
 @note_routes.route('/notes', methods=["POST"])
 def create_note():
     form = CreateNote()
+    user_id = current_user.get_id()
+    form['user_id'].data = user_id
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        user_id = current_user.get_id()
         note = Note(
             title=form.data['title'],
             body=form.data['body'],
-            user_id=user_id,
+            user_id=form.data['user_id'],
             notebook_id=form.data['notebook_id']
         )
         db.session.add(note)
