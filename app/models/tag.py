@@ -10,3 +10,11 @@ class Tag(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     notes = db.relationship("Note", secondary=note_tags, back_populates="tags")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "user_id": self.user_id,
+            "notes": self.notes
+        }
