@@ -13,6 +13,7 @@ import { authenticate } from "./services/auth";
 import { getNotes } from "./store/ducks/notes";
 import { getNotebooks } from "./store/ducks/notebooks";
 import { setCurrentNote } from "./store/ducks/currentNote";
+import { loadUser } from './store/ducks/user';
 
 import { getTags } from "./store/ducks/tags";
 
@@ -26,6 +27,7 @@ function App() {
       const user = await authenticate();
       if (!user.errors) {
         setAuthenticated(true);
+        await dispatch(loadUser(user))
       }
       setLoaded(true);
     })();
