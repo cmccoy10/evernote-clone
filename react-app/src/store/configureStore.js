@@ -5,7 +5,9 @@ import notebooks from './ducks/notebooks';
 import notes from './ducks/notes';
 import tags from './ducks/tags';
 import currentNote from './ducks/currentNote';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const reducer = combineReducers({
     user,
     notebooks,
@@ -13,6 +15,7 @@ const reducer = combineReducers({
     currentNote,
     tags,
 })
+
 const configureStore = initialState => {
     return createStore(
         reducer,
@@ -20,4 +23,6 @@ const configureStore = initialState => {
         composeEnhancers(applyMiddleware(thunk))
     )
 }
+
 export default configureStore;
+
