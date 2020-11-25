@@ -8,12 +8,17 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
-// import { useDispatch } from "react-redux";
-// import { getNotes } from './store/ducks/notes';
+import { useDispatch } from "react-redux";
+import { getNotes } from './store/ducks/notes';
+import { getNotebooks } from './store/ducks/notebooks';
+import { setCurrentNote } from './store/ducks/currentNote';
+
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
     (async () => {
