@@ -1,8 +1,7 @@
 from flask import Blueprint, jsonify, request, Response
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Note, Tag, note_tag, db
-from flask_login import current_user
-from app.forms import NoteForm, NoteUpdateForm, TagForm, NoteTagForm
+from app.forms import NoteForm, NoteUpdateForm, TagForm, NoteTagForm, GetNotes
 from app.api.auth_routes import validation_errors_to_error_messages
 
 note_routes = Blueprint('notes', __name__)

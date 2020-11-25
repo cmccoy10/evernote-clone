@@ -1,0 +1,36 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 13% 17% 70%;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.sidebar {
+  background-color: black;
+  color: white;
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+
+.sidebar h3 {
+  text-align: center;
+}
+
+.note-editor {
+  grid-column: 3 / 3;
+  grid-row: 1;
+}
+.note-editor h3 {
+  text-align: center;
+}
+
+.notes-list {
+  background-color: #e5e5e5;
+  grid-column: 2 / 3;
+  grid-row: 1;
+  padding: 0 20px;
+}
+
+.note {
+  border-top: 1px solid black;
+  height: 100px;
+}
