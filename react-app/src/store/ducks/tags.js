@@ -29,24 +29,25 @@ export const editTag = (tag) => ({
 
 export const getTags = () => async (dispatch) => {
 
-    const res = await fetch(`${baseUrl}/tags`, {
+    const res = await fetch(`/api/tags`, {
         headers: {
             'Content-Type': 'application/json'
         }
     })
     if (res.ok) {
         const { tags } = await res.json();
-        console.log(tags)
         let tagsList = {};
         tags.forEach(tag => {
             tagsList[tag.id] = tag
         });
         dispatch(loadTags(tagsList))
+    } else {
+        console.error(res)
     }
 }
 
 export const createTag = (name) => async (dispatch) => {
-    const res = await fetch(`${baseUrl}/tags`, {
+    const res = await fetch(`/api/tags`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -60,7 +61,7 @@ export const createTag = (name) => async (dispatch) => {
 }
 
 export const deleteTag = (tagId) => async (dispatch) => {
-    const res = await fetch(`${baseUrl}/tags/${tagId}`, {
+    const res = await fetch(`/api/tags/${tagId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -72,7 +73,7 @@ export const deleteTag = (tagId) => async (dispatch) => {
 }
 
 export const updateTag = (tagId, name) => async (dispatch) => {
-    const res = await fetch(`${baseUrl}/tags/${tagId}`, {
+    const res = await fetch(`/api/tags/${tagId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

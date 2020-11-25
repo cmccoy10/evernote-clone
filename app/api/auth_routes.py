@@ -19,11 +19,13 @@ def validation_errors_to_error_messages(validation_errors):
 
 
 @auth_routes.route('/')
+# @login_required
 def authenticate():
     """
     Authenticates a user.
     """
     if current_user.is_authenticated:
+        # print('USER ID: ', user_id)
         return current_user.to_dict()
     return {'errors': ['Unauthorized']}, 401
 
@@ -42,6 +44,7 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
+        print(current_user.get_id())
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

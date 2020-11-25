@@ -12,8 +12,8 @@ const reducer = combineReducers({
     user,
     notebooks,
     notes,
+    currentNote,
     tags,
-    currentNote
 })
 
 const configureStore = initialState => {

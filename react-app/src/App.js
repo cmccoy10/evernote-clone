@@ -29,6 +29,13 @@ function App() {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      console.log('tag effect')
+      await dispatch(getTags())
+    })();
+  }, [authenticated]);
+
 
   if (!loaded) {
     return null;

@@ -9,9 +9,12 @@ tag_routes = Blueprint('tags', __name__)
 
 
 @tag_routes.route('/')
-@login_required
+# @login_required
 def load_tags():
-    user_id = current_user.get_id()
+    user_id = 4
+    print(request.cookies)
+    # user_id = current_user.get_id()
+    print('USER ID: ', user_id)
     tags = Tag.query.filter(Tag.user_id == user_id).order_by(Tag.name).all()
     return {'tags': [tag.to_dict() for tag in tags]}
 
