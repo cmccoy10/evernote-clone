@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
@@ -13,6 +13,7 @@ import { authenticate } from "./services/auth";
 import { getNotes } from "./store/ducks/notes";
 import { getNotebooks } from "./store/ducks/notebooks";
 import { setCurrentNote } from "./store/ducks/currentNote";
+import { loadUser } from './store/ducks/user';
 
 import { getTags } from "./store/ducks/tags";
 
@@ -26,8 +27,18 @@ function App() {
       const user = await authenticate();
       if (!user.errors) {
         setAuthenticated(true);
+        await dispatch(loadUser(user))
       }
       setLoaded(true);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await dispatch(getNotes())
+      await dispatch(getNotebooks())
+      await dispatch(getTags())
+      await dispatch(setCurrentNote(1))
     })();
   }, []);
 
@@ -37,7 +48,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <NavBar setAuthenticated={setAuthenticated} /> */}
+      <NavBar setAuthenticated={setAuthenticated} />
       <Route path="/login" exact={true}>
         <LoginForm
           authenticated={authenticated}
