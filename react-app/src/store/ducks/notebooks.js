@@ -15,6 +15,7 @@ export default function reducer(state = {}, action) {
     case LOAD_NOTEBOOKS: {
       const notebooks = action.notebooks.notebooks.map((notebook) => ({
         [notebook.id]: {
+          id: notebook.id,
           title: notebook.title,
           owner_id: notebook.owner_id,
           is_default: notebook.is_default,
