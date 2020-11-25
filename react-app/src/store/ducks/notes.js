@@ -2,10 +2,10 @@ import merge from "lodash/merge";
 // import { baseUrl } from "../../config";
 
 // Constants
-const LOAD = "clevernote/notes/load";
+const LOAD_NOTES = "clevernote/notes/load";
 
 // Actions
-export const load = (list) => ({ type: LOAD, list });
+export const load = (list) => ({ type: LOAD_NOTES, list });
 
 
 // Thunks
@@ -27,7 +27,7 @@ export default function reducer(state = {}, action) {
     Object.freeze(state);
 
     switch (action.type) {
-        case LOAD: {
+        case LOAD_NOTES: {
             const notes = action.list.map(note => ({
                 [note.id]: {
                     "id": note.id,
