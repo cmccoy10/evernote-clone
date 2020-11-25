@@ -61,7 +61,10 @@ export const createTag = (name) => async (dispatch) => {
 
 export const deleteTag = (tagId) => async (dispatch) => {
     const res = await fetch(`${baseUrl}/tags/${tagId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
     if (res.ok) {
         dispatch(removeTag(tagId))
