@@ -10,11 +10,14 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
 
+import { getTags } from './store/ducks/tags'
+
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     (async() => {
