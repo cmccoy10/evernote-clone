@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
+import Main from "./components/Main/Main";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
@@ -13,14 +14,14 @@ import { getNotebooks } from './store/ducks/notebooks';
 import { setCurrentNote } from './store/ducks/currentNote';
 
 
-
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch()
 
+
   useEffect(() => {
-    (async() => {
+    (async () => {
       const user = await authenticate();
       if (!user.errors) {
         setAuthenticated(true);
@@ -33,10 +34,9 @@ function App() {
     return null;
   }
 
-
   return (
     <BrowserRouter>
-      <NavBar setAuthenticated={setAuthenticated} />
+      {/* <NavBar setAuthenticated={setAuthenticated} /> */}
       <Route path="/login" exact={true}>
         <LoginForm
           authenticated={authenticated}
@@ -44,20 +44,27 @@ function App() {
         />
       </Route>
       <Route path="/sign-up" exact={true}>
-        <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+        <SignUpForm
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
       </Route>
       <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
-        <UsersList/>
+        <UsersList />
       </ProtectedRoute>
-      <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
+      <ProtectedRoute
+        path="/users/:userId"
+        exact={true}
+        authenticated={authenticated}
+      >
         <User />
       </ProtectedRoute>
-      <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-        <h1>My Home Page</h1>
-        <button onClick={() => dispatch(getNotes())}>Get notes</button>
-        <button onClick={() => dispatch(getNotebooks())}>Get notebooks</button>
-        <button onClick={() => dispatch(setCurrentNote(1))}>Set current note</button>
-      </ProtectedRoute>
+      <ProtectedRoute
+        path="/"
+        exact={true}
+        authenticated={authenticated}
+        component={Main}
+      ></ProtectedRoute>
     </BrowserRouter>
   );
 }
