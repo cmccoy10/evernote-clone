@@ -9,6 +9,8 @@ import Main from "./components/Main/Main";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
+import Theme from './components/Theme/Theme';
+import { CssBaseline } from "@material-ui/core";
 import { authenticate } from "./services/auth";
 import { getNotes } from "./store/ducks/notes";
 import { getNotebooks } from "./store/ducks/notebooks";
@@ -16,6 +18,7 @@ import { setCurrentNote } from "./store/ducks/currentNote";
 import { loadUser } from './store/ducks/user';
 
 import { getTags } from "./store/ducks/tags";
+
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -48,35 +51,38 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar setAuthenticated={setAuthenticated} />
-      <Route path="/login" exact={true}>
-        <LoginForm
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        />
-      </Route>
-      <Route path="/sign-up" exact={true}>
-        <SignUpForm
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        />
-      </Route>
-      <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
-        <UsersList />
-      </ProtectedRoute>
-      <ProtectedRoute
-        path="/users/:userId"
-        exact={true}
-        authenticated={authenticated}
-      >
-        <User />
-      </ProtectedRoute>
-      <ProtectedRoute
-        path="/"
-        exact={true}
-        authenticated={authenticated}
-        component={Main}
-      ></ProtectedRoute>
+        <CssBaseline />
+        <Theme>
+        <NavBar setAuthenticated={setAuthenticated} />
+        <Route path="/login" exact={true}>
+            <LoginForm
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            />
+        </Route>
+        <Route path="/sign-up" exact={true}>
+            <SignUpForm
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            />
+        </Route>
+        <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
+            <UsersList />
+        </ProtectedRoute>
+        <ProtectedRoute
+            path="/users/:userId"
+            exact={true}
+            authenticated={authenticated}
+        >
+            <User />
+        </ProtectedRoute>
+        <ProtectedRoute
+            path="/"
+            exact={true}
+            authenticated={authenticated}
+            component={Main}
+        ></ProtectedRoute>
+        </Theme>
     </BrowserRouter>
   );
 }

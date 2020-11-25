@@ -1,11 +1,19 @@
 import React from "react";
 import "../Main/Main.css";
+import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@material-ui/core';
+
+
+const useStyles = makeStyles((theme) => ({
+
+}));
 
 const Sidebar = () => {
+  const classes = useStyles();
   return (
-    <div className="sidebar">
+    <Box >
       <h3>Sidebar</h3>
-    </div>
+    </Box>
   );
 };
 
