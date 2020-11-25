@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
@@ -14,10 +16,13 @@ import { getNotebooks } from './store/ducks/notebooks';
 import { setCurrentNote } from './store/ducks/currentNote';
 
 
+import { getTags } from './store/ducks/tags'
+
+
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -29,6 +34,7 @@ function App() {
       setLoaded(true);
     })();
   }, []);
+
 
   if (!loaded) {
     return null;
