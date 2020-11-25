@@ -1,7 +1,5 @@
-from app.models import notebook
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from sqlalchemy.sql.sqltypes import JSON
 from app.models import Notebook
 from app.models import db
 from app.forms import NotebookForm
@@ -9,6 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 notebook_routes = Blueprint('notebook', __name__)
 
+# for testing purposes only
 user = 1
 
 
@@ -22,7 +21,7 @@ def notebooks():
         return jsonify(notebooks=[notebook.to_dict() for notebook
                                   in notebooks])
     except SQLAlchemyError as e:
-        return jsonify(error={'msg': 'Error ocurred while accessing db'})
+        return jsonify(error={'msg': e._message()})
 
 
 @notebook_routes.route('/', methods=['POST'])
@@ -41,7 +40,7 @@ def create_notebook():
         return jsonify(notebook=[notebook.to_dict()])
     except SQLAlchemyError as e:
         db.session.rollback()
-        return jsonify(error={'msg': 'Error ocurred while accessing db'})
+        return jsonify(error={'msg': e._message()})
 
 
 @notebook_routes.route('/<int:notebookId>', methods=['POST'])
@@ -57,7 +56,7 @@ def update_notebook(notebookId):
             return jsonify(notebook=[notebook.to_dict()])
         except SQLAlchemyError as e:
             db.session.rollback()
-            return jsonify(error={'msg': 'Error ocurred while accessing db'})
+            return jsonify(error={'msg': e._message()})
     return jsonify(error=[{'msg': 'please fill in all required fields'}])
 
 
@@ -71,4 +70,4 @@ def delete_notebook(notebookId):
         return jsonify(status='ok')
     except SQLAlchemyError as e:
         db.session.rollback()
-        return jsonify(error={'msg': 'Error ocurred while accessing db'})
+        return jsonify(error={'msg': e._message()})
