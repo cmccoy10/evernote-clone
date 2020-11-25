@@ -1,7 +1,6 @@
 import merge from "lodash/merge";
-import { baseUrl } from "../../config";
 
-const LOAD_NOTEBOOKS = "evernote-clone/notebooks/LOAD_NOTEBOOKS";
+const LOAD_NOTEBOOKS = "clevernote/notebooks/LOAD_NOTEBOOKS";
 
 export const load_notebooks = (notebooks) => {
   return {
@@ -31,7 +30,7 @@ export default function reducer(state = {}, action) {
 
 export const getNotebooks = () => async (dispatch, getState) => {
   try {
-    const response = await fetch(`${baseUrl}/notebooks`, {
+    const response = await fetch(`/api/notebooks`, {
       headers: {
         "Content-Type": "application/json",
       },
