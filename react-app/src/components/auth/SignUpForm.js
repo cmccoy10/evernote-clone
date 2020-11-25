@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
+import { connect } from 'react-redux';
+import { loadUser } from '../../store/ducks/user'
 
-const SignUpForm = ({authenticated, setAuthenticated}) => {
+const SignUpForm = ({authenticated, setAuthenticated, saveUserTostate}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,6 +16,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
     if (password === repeatPassword) {
       const user = await signUp(firstName, lastName, email, password);
       if (!user.errors) {
+        saveUserTostate(user)
         setAuthenticated(true);
       }
     }
@@ -96,4 +99,8 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
   );
 };
 
-export default SignUpForm;
+const mapDispatchToProps = dispatch => (
+  {saveUserTostate: (user) => dispatch(loadUser(user))}
+)
+
+export default connect(undefined, mapDispatchToProps)(SignUpForm);
