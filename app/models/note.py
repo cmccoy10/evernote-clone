@@ -29,7 +29,7 @@ class Note(db.Model):
             "notebook_id": self.notebook_id,
             "created_on": self.created_on,
             "updated_on": self.created_on,
-            "tags": self.tags
+            "tags": [tag.id for tag in self.tags]
         }
 
     def to_dict_no_tags(self):
