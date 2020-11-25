@@ -7,10 +7,14 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
+import { useDispatch } from "react-redux";
+import { getNotes } from './store/ducks/notes';
+
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async() => {
@@ -22,9 +26,14 @@ function App() {
     })();
   }, []);
 
+//   function callMethod() {
+//       dispatch(getNotes())
+//   }
+
   if (!loaded) {
     return null;
   }
+
 
   return (
     <BrowserRouter>
@@ -46,6 +55,7 @@ function App() {
       </ProtectedRoute>
       <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
         <h1>My Home Page</h1>
+        <button onClick={() => dispatch(getNotes())}>Get Notes</button>
       </ProtectedRoute>
     </BrowserRouter>
   );
