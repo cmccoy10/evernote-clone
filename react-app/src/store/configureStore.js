@@ -25,3 +25,4 @@ const configureStore = initialState => {
 }
 
 export default configureStore;
+

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
+//after login to store user in state
+import { connect } from 'react-redux';
+import { loadUser } from '../../store/ducks/user'
 
-const LoginForm = ({ authenticated, setAuthenticated }) => {
+
+const LoginForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +15,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
     e.preventDefault();
     const user = await login(email, password);
     if (!user.errors) {
+      saveUserTostate(user)
       setAuthenticated(true);
     } else {
       setErrors(user.errors);
@@ -61,4 +66,8 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   );
 };
 
-export default LoginForm;
+const mapDispatchToProps = dispatch => (
+  {saveUserTostate: (user) => dispatch(loadUser(user))}
+)
+
+export default connect(undefined, mapDispatchToProps)(LoginForm);
