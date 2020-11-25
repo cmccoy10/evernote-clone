@@ -31,7 +31,11 @@ export default function reducer(state = {}, action) {
 
 export const getNotebooks = () => async (dispatch, getState) => {
   try {
-    const response = await fetch(`${baseUrl}/notebooks`);
+    const response = await fetch(`${baseUrl}/notebooks`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (response.ok) {
       const notebooks = await response.json();
