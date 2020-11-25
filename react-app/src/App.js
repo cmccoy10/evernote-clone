@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
@@ -31,13 +31,22 @@ function App() {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      await dispatch(getNotes())
+      await dispatch(getNotebooks())
+      await dispatch(getTags())
+      await dispatch(setCurrentNote(1))
+    })();
+  }, []);
+
   if (!loaded) {
     return null;
   }
 
   return (
     <BrowserRouter>
-      {/* <NavBar setAuthenticated={setAuthenticated} /> */}
+      <NavBar setAuthenticated={setAuthenticated} />
       <Route path="/login" exact={true}>
         <LoginForm
           authenticated={authenticated}
