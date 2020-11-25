@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
@@ -10,20 +10,16 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
-import { useDispatch } from "react-redux";
-import { getNotes } from './store/ducks/notes';
-import { getNotebooks } from './store/ducks/notebooks';
-import { setCurrentNote } from './store/ducks/currentNote';
+import { getNotes } from "./store/ducks/notes";
+import { getNotebooks } from "./store/ducks/notebooks";
+import { setCurrentNote } from "./store/ducks/currentNote";
 
-
-import { getTags } from './store/ducks/tags'
-
+import { getTags } from "./store/ducks/tags";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     (async () => {
@@ -34,7 +30,6 @@ function App() {
       setLoaded(true);
     })();
   }, []);
-
 
   if (!loaded) {
     return null;
