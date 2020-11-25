@@ -9,7 +9,7 @@ tag_routes = Blueprint('tags', __name__)
 
 
 @tag_routes.route('/')
-# @login_required
+@login_required
 def load_tags():
     user_id = current_user.get_id()
     tags = Tag.query.filter(Tag.user_id == user_id).order_by(Tag.name).all()
@@ -17,7 +17,7 @@ def load_tags():
 
 
 @tag_routes.route('/', methods=['POST'], strict_slashes=False)
-# @login_required
+@login_required
 def make_new_tag():
     user_id = current_user.get_id()
     form = TagForm()
@@ -35,7 +35,7 @@ def make_new_tag():
 
 
 @tag_routes.route('/<int:tag_id>', methods=['PUT'])
-# @login_required
+@login_required
 def edit_tag(tag_id):
     user_id = current_user.get_id()
     form = TagForm()
@@ -50,7 +50,7 @@ def edit_tag(tag_id):
 
 
 @tag_routes.route('/<int:tag_id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_tag(tag_id):
     user_id = current_user.get_id()
     try:

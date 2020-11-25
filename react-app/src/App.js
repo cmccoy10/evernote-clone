@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
@@ -8,9 +10,11 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
 
+
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async() => {
@@ -21,6 +25,7 @@ function App() {
       setLoaded(true);
     })();
   }, []);
+
 
   if (!loaded) {
     return null;
