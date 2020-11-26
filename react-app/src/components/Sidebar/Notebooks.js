@@ -13,8 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AllNotes = () => {
+const Notebooks = () => {
   const classes = useStyles();
+  const notebooks = useSelector((state) => state.notebooks);
+
   return (
     <>
       <Link
@@ -33,4 +35,4 @@ const AllNotes = () => {
   );
 };
 
-export default AllNotes;
+export default Notebooks;
