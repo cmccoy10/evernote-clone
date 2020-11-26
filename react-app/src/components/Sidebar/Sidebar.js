@@ -1,19 +1,60 @@
 import React from "react";
-import "../Main/Main.css";
-import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
 
+import UserInfo from "./Userinfo";
+import { Drawer, CssBaseline, Divider, List, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import AllNotes from "./AllNotes";
+import Notebooks from "./Notebooks";
+import Tags from "./Tags";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100vh",
+  },
+  drawer: {
+    flexShrink: 0,
+    height: "100%",
+  },
+  drawerPaper: {
+    backgroundColor: "#1a1a1a",
+    color: "#a6a6a6",
+    gridColumn: 1 / 2,
+    gridRow: 1,
+    position: "relative",
+  },
 
+  icon: {
+    color: "#a6a6a6",
+  },
 }));
 
 const Sidebar = () => {
   const classes = useStyles();
+
   return (
-    <Box >
-      <h3>Sidebar</h3>
-    </Box>
+    <div className={classes.root}>
+      <CssBaseline />
+
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+      >
+        <div className={classes.toolbar} />
+        <UserInfo />
+        <Button variant="contained">New Note</Button>
+        <Divider />
+        <List>
+          <AllNotes />
+          <Notebooks />
+          <Tags />
+        </List>
+        <Divider />
+      </Drawer>
+    </div>
   );
 };
 
