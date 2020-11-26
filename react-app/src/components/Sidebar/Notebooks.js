@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "5px",
     minWidth: "unset",
   },
+  coloredIcon: {
+    color: "#00a82d",
+  },
   listItem: {
     paddingLeft: 0,
     paddingRight: 0,
@@ -27,8 +30,11 @@ const Notebooks = () => {
   const classes = useStyles();
   const notebooks = useSelector((state) => state.notebooks);
   const notebookTitles = Object.values(notebooks).map((notebook) => (
-    <li style={{ marginLeft: "62px" }} key={notebook.title}>
-      <FontAwesomeIcon icon={faBook} className={classes.icon} />
+    <li style={{ marginLeft: "45px" }} key={notebook.title}>
+      <FontAwesomeIcon
+        icon={faBook}
+        className={`${classes.icon} ${classes.coloredIcon}`}
+      />
       <span style={{ fontSize: ".8em" }}>{notebook.title}</span>
     </li>
   ));

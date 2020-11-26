@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "5px",
     minWidth: "unset",
   },
+  coloredIcon: {
+    color: "#00a82d",
+  },
   listItem: {
     paddingLeft: 0,
     paddingRight: 0,
@@ -25,8 +28,11 @@ const Tags = () => {
   const classes = useStyles();
   const tags = useSelector((state) => state.tags);
   const tagTitles = Object.values(tags).map((tag) => (
-    <li style={{ marginLeft: "62px" }} key={tag.name}>
-      <FontAwesomeIcon icon={faTag} className={classes.icon} />
+    <li style={{ marginLeft: "45px" }} key={tag.name}>
+      <FontAwesomeIcon
+        icon={faTag}
+        className={`${classes.icon} ${classes.coloredIcon}`}
+      />
       <span style={{ fontSize: ".8em" }}>{tag.name}</span>
     </li>
   ));
