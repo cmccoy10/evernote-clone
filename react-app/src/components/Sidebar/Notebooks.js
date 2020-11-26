@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import ArrowRight from "@material-ui/icons/ArrowRight";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import NewNotebookForm from "./NewNotebookForm";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,6 +27,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Notebooks = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [collapseList, setCollapseList] = useState(false);
   const classes = useStyles();
   const notebooks = useSelector((state) => state.notebooks);
@@ -60,10 +70,15 @@ const Notebooks = () => {
         <FontAwesomeIcon icon={faBook} className={classes.icon} />
         Notebooks
         <div className="add-button">
-          <FontAwesomeIcon icon={faPlus} className={classes.icon} />
+          <FontAwesomeIcon
+            icon={faPlus}
+            className={classes.icon}
+            onClick={handleClickOpen}
+          />
         </div>
       </ListItem>
       {collapseList ? notebookTitles : null}
+      <NewNotebookForm open={open} onClose={handleClose} />
     </div>
   );
 };

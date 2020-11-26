@@ -19,7 +19,7 @@ const UserInfo = () => {
   const id = open ? "simple-popover" : undefined;
 
   const user = useSelector((state) => state.user);
-  const userInitial = user ? user.first_name[0] : null;
+  const userInitial = user.first_name ? user.first_name[0] : null;
 
   return (
     <div className="user-container">

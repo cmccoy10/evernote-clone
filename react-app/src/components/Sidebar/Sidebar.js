@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
   button: {
     borderRadius: "20px",
-    width: "55%",
+    width: "150px",
     margin: "15px 10px 5px 15px",
     backgroundColor: "#00a82d",
     color: "white",
