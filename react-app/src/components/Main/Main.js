@@ -11,8 +11,6 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         width: "100vw",
         height: "100vh",
-        display: "flex",
-        direction: "column"
     },
     sidebarContainer: {
         height: "100vh",
@@ -28,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
         height: "100vh",
         width: "50%",
         border: "thin solid black",
-        color: "red"
     },
 }));
 

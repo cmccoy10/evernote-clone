@@ -1,7 +1,8 @@
   .quill {
     box-sizing: border-box;
-    width: 80vw;
+    width: 100%;
     overflow: scroll;
+    margin: 0;
   }
 
   .quill::-webkit-scrollbar {
@@ -22,7 +23,7 @@
     height: 0;
   }
 
-  .ql-editor {
+  /* .ql-editor {
     cursor: text;
-    height: 100vh;
-  }
+    height: 80vh;
+  } */

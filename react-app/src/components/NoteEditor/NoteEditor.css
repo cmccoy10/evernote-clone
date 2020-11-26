@@ -1,0 +1,48 @@
+.quill {
+    box-sizing: border-box;
+    width: 100%;
+    overflow: scroll;
+    margin: 0;
+  }
+
+  .quill::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+  }
+
+
+  .ql-container {
+    box-sizing: border-box;
+    overflow-y: scroll;
+  }
+
+  .ql-container::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+  }
+
+  .ql-editor {
+    cursor: text;
+    height: 78vh;
+  }
+
+  .richTextEditorContainer {
+    display: "flex";
+    flex-direction: "row";
+    height: 100%;
+  }
+  .headerContainer {
+    height: 4em;
+    border: thin solid black;
+  }
+  .editorContainer {
+    /* height: 37rem; */
+    flex-grow: 4;
+    border: thin solid black;
+  }
+  .footerContainer {
+    height: 3em;
+    border: thin solid black;
+  }

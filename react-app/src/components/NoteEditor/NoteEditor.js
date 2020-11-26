@@ -7,8 +7,8 @@ import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     textEditor: {
-        height: '100vh',
-        boxSizing: 'border-box'
+        // height: '100vh',
+        // boxSizing: 'border-box'
     },
 }));
 
