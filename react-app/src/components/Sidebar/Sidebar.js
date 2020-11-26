@@ -18,9 +18,8 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     backgroundColor: "#1a1a1a",
     color: "#a6a6a6",
-    gridColumn: 1 / 2,
-    gridRow: 1,
     position: "relative",
+    overflowX: "hidden",
   },
 
   icon: {
