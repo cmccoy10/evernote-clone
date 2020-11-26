@@ -3,6 +3,7 @@ import React from "react";
 import UserInfo from "./Userinfo";
 import { Drawer, CssBaseline, Divider, List, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Add from "@material-ui/icons/Add";
 import AllNotes from "./AllNotes";
 import Notebooks from "./Notebooks";
 import Tags from "./Tags";
@@ -25,6 +26,16 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: "#a6a6a6",
   },
+
+  button: {
+    borderRadius: "20px",
+    width: "55%",
+    margin: "15px 10px 5px 15px",
+    backgroundColor: "#00a82d",
+    color: "white",
+    textTransform: "none",
+    justifyContent: "flex-start",
+  },
 }));
 
 const Sidebar = () => {
@@ -44,7 +55,13 @@ const Sidebar = () => {
       >
         <div className={classes.toolbar} />
         <UserInfo />
-        <Button variant="contained">New Note</Button>
+        <Button
+          className={classes.button}
+          startIcon={<Add />}
+          variant="contained"
+        >
+          New Note
+        </Button>
         <Divider />
         <List>
           <AllNotes />

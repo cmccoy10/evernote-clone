@@ -1,8 +1,9 @@
 .user-container {
   display: flex;
-  align-items: space-between;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
+  margin-left: 20px;
+  margin-top: 15px;
 }
 
 .allnotes-link-container {
@@ -12,4 +13,12 @@
 
 .sidebar-link {
   cursor: pointer;
+}
+
+.add-button {
+  margin-left: 25px;
+}
+
+.user-fullname {
+  margin-left: 10px;
 }

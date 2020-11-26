@@ -6,12 +6,12 @@ import "./Sidebar.css";
 
 const UserInfo = () => {
   const user = useSelector((state) => state.user);
-  const userInitial = user.first_name[0];
+  const userInitial = user ? user.first_name[0] : null;
 
   return (
     <div className="user-container">
       <Avatar>{userInitial}</Avatar>
-      <span>{`${user.first_name} ${user.last_name}`}</span>
+      <span className="user-fullname">{`${user.first_name} ${user.last_name}`}</span>
       <ArrowDropDown />
     </div>
   );
