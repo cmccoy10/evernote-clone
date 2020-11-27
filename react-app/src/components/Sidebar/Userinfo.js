@@ -66,7 +66,7 @@ const UserInfo = () => {
         <div className="account-title">ACCOUNT</div>
         <Box p={1} className={classes.root}>
           <Avatar className={classes.avatar}>{userInitial}</Avatar>
-          <div className="userColumn">
+          <div className="user-column">
             <div>{userFullName}</div>
             <div>{user.email}</div>
           </div>

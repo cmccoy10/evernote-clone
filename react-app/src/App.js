@@ -41,6 +41,7 @@ function App() {
       await dispatch(getNotebooks());
       await dispatch(getTags());
       await dispatch(setCurrentNote(1));
+      await dispatch(setCurrentNote(null));
     })();
   }, []);
 
