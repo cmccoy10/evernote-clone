@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button,Typography, IconButton } from '@material-ui/core';
+import { Box, Button, Typography, IconButton } from '@material-ui/core';
 import { LibraryBooks, Delete } from "@material-ui/icons"
 
 
@@ -28,7 +28,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NoteHeader = () => {
+const handleClick = (e) => {
+
+}
+
+const NoteHeader = (props) => {
     const classes = useStyles();
     return (
         <Box className={classes.headerContainer}>
@@ -45,7 +49,7 @@ const NoteHeader = () => {
                     <Button className={classes.margin} size="small" variant="contained" disableElevation>Cancel</Button>
                 </Box>
                 <Box>
-                    <Button className={classes.margin} size="small" color="secondary" variant="contained" disableElevation>Save</Button>
+                    <Button className={classes.margin} size="small" color="secondary" variant="contained" disableElevation onClick={handleClick()}>Save</Button>
                 </Box>
                 <Box>
                     <IconButton size="small" className={classes.margin}>

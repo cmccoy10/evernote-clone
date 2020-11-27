@@ -9,7 +9,7 @@ export const load = (list) => ({ type: LOAD_NOTES, list });
 
 
 // Thunks
-export const getNotes = (data) => async (dispatch, getState) => {
+export const getNotes = () => async (dispatch, getState) => {
     const response = await fetch('/api/notes/',{
       headers: {
         'Content-Type': 'application/json'
@@ -21,6 +21,38 @@ export const getNotes = (data) => async (dispatch, getState) => {
     }
 }
 
+export const editNote = (data) => async (dispatch, getState) => {
+    console.log(data)
+    // const response = await fetch(`/api/notes/${}`, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       "first_name": firstName,
+    //       "last_name": lastName,
+    //       email,
+    //       password,
+    //     }),
+    //   });
+    //   return await response.json();
+}
+
+export const signUp = async (firstName, lastName, email, password) => {
+    const response = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "first_name": firstName,
+        "last_name": lastName,
+        email,
+        password,
+      }),
+    });
+    return await response.json();
+  }
 
 // Reducer
 export default function reducer(state = {}, action) {

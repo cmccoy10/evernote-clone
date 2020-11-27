@@ -27,21 +27,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NoteEditorContainer = () => {
-    const [text, setText] = useState(" ");
+const NoteEditorContainer = ({ note }) => {
+
+    const [text, setText] = useState();
 
     const handleChange = (value) => {
         setText(value);
     }
 
-    const classes = useStyles();
+    if (!note) {
+        return null;
+    }
+
+    const message = note.title + note.body;
+
     return (
         <Box className="richTextEditorContainer">
             <Box className="headerContainer">
-                <NoteHeader />
+                <NoteHeader props={text}/>
             </Box>
             <Box className="editorContainer">
-                <ReactQuill value={text} onChange={handleChange} />
+                <ReactQuill placeholder="Title" defaultValue={message} onChange={handleChange} />
             </Box>
             <Box className="footerContainer">
                 <NoteFooter />

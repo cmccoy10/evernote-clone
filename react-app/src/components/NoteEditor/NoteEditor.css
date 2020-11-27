@@ -30,7 +30,7 @@
 
   .richTextEditorContainer {
     display: "flex";
-    flex-direction: "row";
+    flex-direction: "column";
     height: 100%;
   }
   .headerContainer {
@@ -38,8 +38,8 @@
     border: thin solid black;
   }
   .editorContainer {
-    /* height: 37rem; */
-    flex-grow: 4;
+    height: auto;
+    /* flex-grow: 4; */
     border: thin solid black;
   }
   .footerContainer {
