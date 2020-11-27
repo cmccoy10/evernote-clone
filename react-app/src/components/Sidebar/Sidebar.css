@@ -22,3 +22,20 @@
 .user-fullname {
   margin-left: 10px;
 }
+
+.user-dropdown {
+  display: flex;
+}
+
+.userColumn {
+  margin-left: 20px;
+  width: 175px;
+  font-weight: bold;
+  color: #ababab;
+}
+
+.account-title {
+  margin: 10px;
+  color: #ababab;
+  font-weight: bold;
+}

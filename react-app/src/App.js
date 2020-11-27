@@ -52,7 +52,7 @@ function App() {
     <BrowserRouter>
       <CssBaseline />
       <Theme>
-        <NavBar setAuthenticated={setAuthenticated} />
+        {/* <NavBar setAuthenticated={setAuthenticated} /> */}
         <Route path="/login" exact={true}>
           <LoginForm
             authenticated={authenticated}

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Button,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
@@ -23,15 +22,6 @@ const NewNotebookForm = (props) => {
       >
         <DialogTitle id="form-dialog-title">Create new notebook</DialogTitle>
         <DialogContent>
-          {/* <TextField
-            autoFocus
-            // margin="dense"
-            id="name"
-            label="Notebook Name"
-            type="text"
-            variant="outlined"
-            fullWidth
-          /> */}
           <form>
             <div>
               <label for="title">Name</label>
