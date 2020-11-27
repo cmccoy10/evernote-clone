@@ -52,7 +52,7 @@ function App() {
     <BrowserRouter>
       <CssBaseline />
       <Theme>
-        {/* <NavBar setAuthenticated={setAuthenticated} /> */}
+        <NavBar setAuthenticated={setAuthenticated} />
         <Route path="/login" exact={true}>
           <LoginForm
             authenticated={authenticated}
@@ -82,6 +82,7 @@ function App() {
         <ProtectedRoute
           path="/"
           exact={true}
+          setAuthenticated={setAuthenticated}
           authenticated={authenticated}
           component={Main}
         ></ProtectedRoute>

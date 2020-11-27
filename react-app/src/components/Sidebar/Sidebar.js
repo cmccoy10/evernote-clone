@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sidebar = () => {
+const Sidebar = ({ setAuthenticated }) => {
   const classes = useStyles();
 
   return (
@@ -54,7 +54,7 @@ const Sidebar = () => {
         anchor="left"
       >
         <div className={classes.toolbar} />
-        <UserInfo />
+        <UserInfo setAuthenticated={setAuthenticated} />
         <Button
           className={classes.button}
           startIcon={<Add />}

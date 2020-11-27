@@ -5,7 +5,7 @@ import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import "./Sidebar.css";
 import LogoutButton from "../auth/LogoutButton";
 
-const UserInfo = () => {
+const UserInfo = ({ setAuthenticated }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -41,7 +41,7 @@ const UserInfo = () => {
         }}
       >
         <Box p={1}>
-          <LogoutButton />
+          <LogoutButton setAuthenticated={setAuthenticated} />
         </Box>
       </Popover>
     </div>
