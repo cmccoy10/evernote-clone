@@ -30,9 +30,10 @@ def notebooks():
 def create_notebook():
     form = NotebookForm()
     user_id = current_user.get_id()
+    form['owner_id'].data = user_id
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        notebook = Notebook(owner_id=user_id, title=form.data['title'])
+        notebook = Notebook(owner_id=form.data['owner_id'], title=form.data['title'])
         db.session.add(notebook)
         db.session.commit()
         return jsonify(notebook=[notebook.to_dict()])
