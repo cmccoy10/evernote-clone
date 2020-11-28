@@ -4,6 +4,7 @@ from app.models import Notebook
 from app.models import db
 from app.forms import NotebookForm
 from sqlalchemy.exc import SQLAlchemyError
+from app.api.auth_routes import validation_errors_to_error_messages
 
 notebook_routes = Blueprint('notebook', __name__)
 
@@ -11,11 +12,11 @@ notebook_routes = Blueprint('notebook', __name__)
 user = 1
 
 
-@notebook_routes.route('/', methods=['GET'])
-# @login_required
+@notebook_routes.route('', methods=['GET'])
+@login_required
 def notebooks():
-    # user_id = current_user.get_id()
-    user_id = user
+    user_id = current_user.get_id()
+    # user_id = user
     try:
         notebooks = Notebook.query.filter_by(owner_id=user_id)
         return jsonify(notebooks=[notebook.to_dict() for notebook
@@ -24,23 +25,19 @@ def notebooks():
         return jsonify(error={'msg': e._message()})
 
 
-@notebook_routes.route('/', methods=['POST'])
-# @login_required
+@notebook_routes.route('', methods=['POST'])
+@login_required
 def create_notebook():
-    # user_id = current_user.get_id()
-    user_id = user
-    title = request.form.get('title') if request.form.get(
-        'title') else 'Untitled'
-    is_default = True if title == 'Untitled' else False
-    try:
-        notebook = Notebook(owner_id=user_id, title=title,
-                            is_default=is_default)
+    form = NotebookForm()
+    user_id = current_user.get_id()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        notebook = Notebook(owner_id=user_id, title=form.data['title'])
         db.session.add(notebook)
         db.session.commit()
         return jsonify(notebook=[notebook.to_dict()])
-    except SQLAlchemyError as e:
-        db.session.rollback()
-        return jsonify(error={'msg': e._message()})
+    # return jsonify(error={'msg': e._message()})
+    return {'errors': validation_errors_to_error_messages(form.errors)}
 
 
 @notebook_routes.route('/<int:notebookId>', methods=['POST'])
