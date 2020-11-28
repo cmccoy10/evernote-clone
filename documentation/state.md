@@ -8,6 +8,7 @@
     },
     notebooks: {
         notebook_id: {
+            id,
             title,
             owner_id,
             is_default,

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
@@ -17,8 +16,8 @@ import { getNotebooks } from "./store/ducks/notebooks";
 import { setCurrentNote } from "./store/ducks/currentNote";
 import { setCurrentNotebook } from "./store/ducks/currentNotebook";
 import { loadUser } from "./store/ducks/user";
-
 import { getTags } from "./store/ducks/tags";
+// import "./App.css";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -52,8 +51,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <CssBaseline />
-      <Theme>
+        <CssBaseline />
+        <Theme>
         {/* <NavBar setAuthenticated={setAuthenticated} /> */}
         <Route path="/login" exact={true}>
           <LoginForm
