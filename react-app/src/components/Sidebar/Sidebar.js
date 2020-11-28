@@ -7,6 +7,8 @@ import Add from "@material-ui/icons/Add";
 import AllNotes from "./AllNotes";
 import Notebooks from "./Notebooks";
 import Tags from "./Tags";
+import { createNote } from "../../store/ducks/notes";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidebar = ({ setAuthenticated }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const currentNotebook = useSelector((state) => state.currentNotebook);
+
+  const handleCreateNote = () => {
+    dispatch(createNote(currentNotebook));
+  };
 
   return (
     <div className={classes.root}>
@@ -56,6 +64,7 @@ const Sidebar = ({ setAuthenticated }) => {
         <div className={classes.toolbar} />
         <UserInfo setAuthenticated={setAuthenticated} />
         <Button
+          onClick={handleCreateNote}
           className={classes.button}
           startIcon={<Add />}
           variant="contained"
