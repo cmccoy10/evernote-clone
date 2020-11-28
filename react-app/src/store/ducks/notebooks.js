@@ -24,8 +24,8 @@ export const createNotebook = (title) => async (dispatch) => {
     body: JSON.stringify({ title }),
   });
   if (res.ok) {
-    const list = await res.json();
-    dispatch(newNotebook(list.notebook));
+    const notebook = await res.json();
+    dispatch(newNotebook(notebook));
   }
 };
 
