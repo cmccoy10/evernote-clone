@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Button,
   Dialog,
@@ -8,10 +9,22 @@ import {
   Input,
 } from "@material-ui/core";
 
+import { createNotebook } from "../../store/ducks/notebooks";
+
 const NewNotebookForm = (props) => {
-  const createNotebook = () => {
-    console.log("notebook created");
+  const dispatch = useDispatch();
+
+  const [title, setTitle] = useState("");
+
+  const updateTitle = (e) => {
+    setTitle(e.target.value);
   };
+
+  const handleSubmit = async () => {
+    await dispatch(createNotebook(title));
+    props.onClose();
+  };
+
   return (
     <div>
       <Dialog
@@ -24,14 +37,19 @@ const NewNotebookForm = (props) => {
         <DialogContent>
           <form>
             <div>
-              <label for="title">Name</label>
+              <label htmlFor="title">Name</label>
             </div>
-            <Input name="title" inputProps={{ "aria-label": "description" }} />
+            <Input
+              name="title"
+              inputProps={{ "aria-label": "description" }}
+              value={title}
+              onChange={updateTitle}
+            />
           </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={props.onClose}>Cancel</Button>
-          <Button onClick={createNotebook}>Save</Button>
+          <Button onClick={handleSubmit}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>

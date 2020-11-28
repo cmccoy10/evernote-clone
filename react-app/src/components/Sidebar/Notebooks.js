@@ -50,11 +50,11 @@ const Notebooks = () => {
   const notebooks = useSelector((state) => state.notebooks);
   const notebookTitles = Object.values(notebooks).map((notebook) => (
     <div
+      key={notebook.title}
       className={notebook.id === currentNotebook ? "current-notebook" : null}
     >
       <li
         style={{ marginLeft: "45px" }}
-        key={notebook.title}
         onClick={() => setCurrent(notebook.id)}
       >
         <FontAwesomeIcon
