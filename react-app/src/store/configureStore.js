@@ -1,29 +1,29 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import thunk from 'redux-thunk';
-import user from './ducks/user';
-import notebooks from './ducks/notebooks';
-import notes from './ducks/notes';
-import tags from './ducks/tags';
-import currentNote from './ducks/currentNote';
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import thunk from "redux-thunk";
+import user from "./ducks/user";
+import notebooks from "./ducks/notebooks";
+import notes from "./ducks/notes";
+import tags from "./ducks/tags";
+import currentNote from "./ducks/currentNote";
+import currentNotebook from "./ducks/currentNotebook";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-
 const reducer = combineReducers({
-    user,
-    notebooks,
-    notes,
-    currentNote,
-    tags,
-})
+  user,
+  notebooks,
+  notes,
+  currentNote,
+  currentNotebook,
+  tags,
+});
 
-
-const configureStore = initialState => {
-    return createStore(
-        reducer,
-        initialState,
-        composeEnhancers(applyMiddleware(thunk))
-    )
-}
+const configureStore = (initialState) => {
+  return createStore(
+    reducer,
+    initialState,
+    composeEnhancers(applyMiddleware(thunk))
+  );
+};
 
 export default configureStore;

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Notebook
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -70,8 +70,19 @@ def sign_up():
             email=form.data['email'],
             password=form.data['password']
         )
+
         db.session.add(user)
         db.session.commit()
+
+        default_notebook = Notebook(
+            title="First Notebook",
+            owner_id=user.id,
+            is_default=True
+        )
+
+        db.session.add(default_notebook)
+        db.session.commit()
+
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}
