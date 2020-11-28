@@ -7,14 +7,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotes } from "../../store/ducks/notes";
-import { useDispatch, useSelector } from "react-redux";
-import { getNotes } from "../../store/ducks/notes";
 import { getNotebooks } from "../../store/ducks/notebooks";
 import { setCurrentNote } from "../../store/ducks/currentNote";
 import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
 import { getTags } from "../../store/ducks/tags";
 
-const useStyles = makeStyles((theme) => ({
+
 
 const Main = () => {
   const currentNote = useSelector(state => state.currentNote);
@@ -27,12 +25,12 @@ const Main = () => {
       await dispatch(getNotes());
       await dispatch(getNotebooks());
       await dispatch(getTags());
-      await dispatch(setCurrentNote(1));
+      await dispatch(setCurrentNote(14));
       await dispatch(setCurrentNotebook(null));
     })();
   }, []);
 
-
+  const useStyles = makeStyles((theme) => ({
     mainContainer: {
         width: "100vw",
         height: "100vh",
@@ -52,10 +50,10 @@ const Main = () => {
         width: "50%",
         border: "thin solid black",
     },
-}));
+  }));
 
   const classes = useStyles();
-      
+
   return (
     <Box display="flex" direction="row" className={classes.main}>
         <Box className={classes.sidebarContainer}>
