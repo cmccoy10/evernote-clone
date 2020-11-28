@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Typography, IconButton } from '@material-ui/core';
 import { LibraryBooks, Delete } from "@material-ui/icons"
+import { deleteNote, editNote } from '../../store/ducks/notes';
+import { useDispatch } from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,32 +30,45 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const handleClick = (e) => {
 
-}
-
-const NoteHeader = (props) => {
+const NoteHeader = ({ id, note, edited, handleCancel }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const handleSave = () => {
+        dispatch(editNote({
+            id,
+            note
+        }))
+    }
+
+    const handleDelete = () => {
+        dispatch(deleteNote({ id }))
+    }
     return (
         <Box className={classes.headerContainer}>
             <Box>
                 <Button className={classes.notebookButton}>
-                    <LibraryBooks/>
+                    <LibraryBooks color="secondary"/>
                     <Box className={classes.notebookText}>
                         First Notebook
                     </Box>
                 </Button>
             </Box>
             <Box className={classes.buttonsContainer}>
-                <Box>
-                    <Button className={classes.margin} size="small" variant="contained" disableElevation>Cancel</Button>
+                {edited ?
+                <Box className={classes.buttonsContainer}>
+                    <Box>
+                        <Button className={classes.margin} size="small" color="other" variant="contained" disableElevation onClick={() => handleCancel()}>Cancel</Button>
+                    </Box>
+                    <Box>
+                        <Button className={classes.margin} size="small" color="secondary" variant="contained" disableElevation onClick={() => handleSave()}>Save</Button>
+                    </Box>
                 </Box>
+                : null}
                 <Box>
-                    <Button className={classes.margin} size="small" color="secondary" variant="contained" disableElevation onClick={handleClick()}>Save</Button>
-                </Box>
-                <Box>
-                    <IconButton size="small" className={classes.margin}>
-                        <Delete color="secondary" />
+                    <IconButton size="small" className={classes.margin} onClick={() => handleDelete()}>
+                        <Delete color="primary" />
                     </IconButton>
                 </Box>
             </Box>

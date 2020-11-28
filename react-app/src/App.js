@@ -40,7 +40,7 @@ function App() {
       await dispatch(getNotes())
       await dispatch(getNotebooks())
       await dispatch(getTags())
-      await dispatch(setCurrentNote(13))
+      await dispatch(setCurrentNote(14))
     })();
   }, []);
 

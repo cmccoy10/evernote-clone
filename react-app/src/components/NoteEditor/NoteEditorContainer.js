@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import ReactQuill from "react-quill"
 import "./NoteEditor.css"
+import { useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,12 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 const NoteEditorContainer = ({ note }) => {
-
-    const [text, setText] = useState();
-
-    const handleChange = (value) => {
-        setText(value);
-    }
+    const currentNote = useSelector(state => state.currentNote)
+    const [text, setText] = useState("");
+    const [edited, setEdited] = useState(false);
 
     if (!note) {
         return null;
@@ -41,10 +39,19 @@ const NoteEditorContainer = ({ note }) => {
 
     const message = note.title + note.body;
 
+    const handleChange = (value) => {
+        setText(value);
+        setEdited(true);
+    }
+
+    const handleCancel = () => {
+        // dispatch();
+    }
+
     return (
         <Box className="richTextEditorContainer">
             <Box className="headerContainer">
-                <NoteHeader props={text}/>
+                <NoteHeader note={text} id={currentNote} edited={edited} handleCancel={handleCancel}/>
             </Box>
             <Box className="editorContainer">
                 <ReactQuill placeholder="Title" defaultValue={message} onChange={handleChange} />
