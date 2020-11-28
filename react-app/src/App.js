@@ -15,6 +15,7 @@ import { authenticate } from "./services/auth";
 import { getNotes } from "./store/ducks/notes";
 import { getNotebooks } from "./store/ducks/notebooks";
 import { setCurrentNote } from "./store/ducks/currentNote";
+import { setCurrentNotebook } from "./store/ducks/currentNotebook";
 import { loadUser } from "./store/ducks/user";
 
 import { getTags } from "./store/ducks/tags";
@@ -41,7 +42,7 @@ function App() {
       await dispatch(getNotebooks());
       await dispatch(getTags());
       await dispatch(setCurrentNote(1));
-      await dispatch(setCurrentNote(null));
+      await dispatch(setCurrentNotebook(null));
     })();
   }, []);
 

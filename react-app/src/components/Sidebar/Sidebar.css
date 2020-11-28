@@ -39,3 +39,8 @@
   color: #ababab;
   font-weight: bold;
 }
+
+.current-notebook {
+  background-color: #404040;
+  color: white;
+}

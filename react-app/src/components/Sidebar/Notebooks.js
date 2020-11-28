@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { ListItem, ListItemIcon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,6 +8,7 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import ArrowRight from "@material-ui/icons/ArrowRight";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import NewNotebookForm from "./NewNotebookForm";
+import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Notebooks = () => {
+  const dispatch = useDispatch();
+  const currentNotebook = useSelector((state) => state.currentNotebook);
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -36,17 +40,30 @@ const Notebooks = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const setCurrent = async (index) => {
+    await dispatch(setCurrentNotebook(index));
+  };
+
   const [collapseList, setCollapseList] = useState(false);
   const classes = useStyles();
   const notebooks = useSelector((state) => state.notebooks);
   const notebookTitles = Object.values(notebooks).map((notebook) => (
-    <li style={{ marginLeft: "45px" }} key={notebook.title}>
-      <FontAwesomeIcon
-        icon={faBook}
-        className={`${classes.icon} ${classes.coloredIcon}`}
-      />
-      <span style={{ fontSize: ".8em" }}>{notebook.title}</span>
-    </li>
+    <div
+      className={notebook.id === currentNotebook ? "current-notebook" : null}
+    >
+      <li
+        style={{ marginLeft: "45px" }}
+        key={notebook.title}
+        onClick={() => setCurrent(notebook.id)}
+      >
+        <FontAwesomeIcon
+          icon={faBook}
+          className={`${classes.icon} ${classes.coloredIcon}`}
+        />
+        <span style={{ fontSize: ".8em" }}>{notebook.title}</span>
+      </li>
+    </div>
   ));
 
   return (

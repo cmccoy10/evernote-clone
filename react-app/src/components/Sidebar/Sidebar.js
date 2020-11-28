@@ -1,6 +1,6 @@
 import React from "react";
 
-import UserInfo from "./Userinfo";
+import UserInfo from "./UserInfo";
 import { Drawer, CssBaseline, Divider, List, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Add from "@material-ui/icons/Add";
