@@ -41,8 +41,7 @@ def create_notebook():
             return notebook.to_dict()
         except SQLAlchemyError as e:
             return jsonify(error={'msg': e._message()})
-    # return jsonify(error={'msg': e._message()})
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+    return {'errors': 'Please provide a name for your notebook.'}, 400
 
 
 @notebook_routes.route('/<int:notebookId>', methods=['POST'])

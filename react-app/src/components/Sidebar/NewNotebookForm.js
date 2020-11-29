@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Button,
   Dialog,
@@ -9,10 +9,9 @@ import {
   Input,
 } from "@material-ui/core";
 
-import { createNotebook, handleFormErrors } from "../../store/ducks/notebooks";
+import { createNotebook } from "../../store/ducks/notebooks";
 
 const NewNotebookForm = (props) => {
-  // const errors = useSelector((state) => state.notebooks.formErrors);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
@@ -60,7 +59,7 @@ const NewNotebookForm = (props) => {
             />
           </form>
         </DialogContent>
-        <ul>{errors}</ul>
+        <div className="form-errors">{errors}</div>
         <DialogActions>
           <Button onClick={handleCancel}>Cancel</Button>
           <Button onClick={handleSubmit}>Save</Button>

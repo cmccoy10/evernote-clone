@@ -33,7 +33,7 @@ export const createNotebook = (title) => async (dispatch) => {
     }
   } catch (err) {
     const badRequest = await err.json();
-    const errors = badRequest.errors[0];
+    const errors = badRequest.errors;
     return {
       errors: errors,
     };

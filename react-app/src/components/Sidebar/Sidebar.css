@@ -44,3 +44,9 @@
   background-color: #404040;
   color: white;
 }
+
+.form-errors {
+  color: red;
+  margin: 10px 20px;
+  font-weight: bold;
+}
