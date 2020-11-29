@@ -6,13 +6,13 @@ const theme = createMuiTheme({
   background: '#2C3849',
   palette: {
     primary: {
-      main: '#FFFFFF',
+      main: '#1a1a1a',
     },
     secondary: {
-      main: '#2C3849'
+      main: '#00a82d'
     },
-    delete: {
-      main: "#e31c1b"
+    other: {
+      main: "#a6a6a6"
     }
   }
 });

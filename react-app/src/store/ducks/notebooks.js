@@ -1,33 +1,44 @@
 import merge from "lodash/merge";
 
-const LOAD_NOTEBOOKS = "clevernote/notebooks/LOAD_NOTEBOOKS";
+const LOAD_NOTEBOOKS = "clevernote/notebooks/load";
+const NEW_NOTEBOOK = "clevernote/notebooks/new";
 
-export const load_notebooks = (notebooks) => {
+export const load_notebooks = (list) => {
   return {
     type: LOAD_NOTEBOOKS,
-    notebooks,
+    list,
   };
 };
 
-export default function reducer(state = {}, action) {
-  Object.freeze(state);
-  switch (action.type) {
-    case LOAD_NOTEBOOKS: {
-      const notebooks = action.notebooks.notebooks.map((notebook) => ({
-        [notebook.id]: {
-          id: notebook.id,
-          title: notebook.title,
-          owner_id: notebook.owner_id,
-          is_default: notebook.is_default,
-          notes: [...notebook.notes],
-        },
-      }));
-      return merge({}, state, ...notebooks);
+export const newNotebook = (notebook) => ({
+  type: NEW_NOTEBOOK,
+  notebook,
+});
+
+export const createNotebook = (title) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/notebooks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title }),
+    });
+    if (res.ok) {
+      const notebook = await res.json();
+
+      dispatch(newNotebook(notebook));
+    } else {
+      throw res;
     }
-    default:
-      return state;
+  } catch (err) {
+    const badRequest = await err.json();
+    const errors = badRequest.errors;
+    return {
+      errors: errors,
+    };
   }
-}
+};
 
 export const getNotebooks = () => async (dispatch, getState) => {
   try {
@@ -36,12 +47,32 @@ export const getNotebooks = () => async (dispatch, getState) => {
         "Content-Type": "application/json",
       },
     });
-
     if (response.ok) {
-      const notebooks = await response.json();
-      dispatch(load_notebooks(notebooks));
+      const list = await response.json();
+      dispatch(load_notebooks(list.notebooks));
     }
   } catch (e) {
     console.log(e);
   }
 };
+
+export default function reducer(state = {}, action) {
+  Object.freeze(state);
+  switch (action.type) {
+    case LOAD_NOTEBOOKS: {
+      const notebooks = action.list.map((notebook) => ({
+        [notebook.id]: notebook,
+      }));
+      return merge({}, state, ...notebooks);
+    }
+
+    case NEW_NOTEBOOK: {
+      let newState = { ...state };
+      newState[action.notebook.id] = action.notebook;
+      return { ...newState };
+    }
+
+    default:
+      return state;
+  }
+}
