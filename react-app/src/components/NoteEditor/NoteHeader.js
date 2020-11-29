@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NoteHeader = ({ id, note, edited, handleCancel }) => {
+const NoteHeader = ({ id, note, edited, handleCancel, notebook }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
@@ -60,7 +60,7 @@ const NoteHeader = ({ id, note, edited, handleCancel }) => {
                 <Button className={classes.notebookButton}>
                     <LibraryBooks color="secondary"/>
                     <Box className={classes.notebookText}>
-                        First Notebook
+                        {notebook.title}
                     </Box>
                 </Button>
             </Box>

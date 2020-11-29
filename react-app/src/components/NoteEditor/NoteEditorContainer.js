@@ -9,8 +9,9 @@ import { useSelector } from "react-redux";
 import { createNote } from "../../store/ducks/notes";
 
 
-const NoteEditorContainer = ({ message }) => {
-  const currentNote = useSelector((state) => state.currentNote);
+const NoteEditorContainer = ({ message, notebookId }) => {
+  const currentNote = useSelector(state => state.currentNote);
+  const notebook = useSelector(state => state.notebooks[notebookId]);
   const [text, setText] = useState(message);
   const [edited, setEdited] = useState(false);
 
@@ -36,6 +37,7 @@ const NoteEditorContainer = ({ message }) => {
           note={text}
           id={currentNote}
           edited={edited}
+          notebook={notebook}
           handleCancel={handleCancel}
         />
       </Box>
