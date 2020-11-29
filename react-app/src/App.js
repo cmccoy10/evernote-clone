@@ -35,24 +35,14 @@ function App() {
     })();
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      await dispatch(getNotes());
-      await dispatch(getNotebooks());
-      await dispatch(getTags());
-      await dispatch(setCurrentNote(14));
-      await dispatch(setCurrentNotebook(null));
-    })();
-  }, []);
-
   if (!loaded) {
     return null;
   }
 
   return (
     <BrowserRouter>
-        <CssBaseline />
-        <Theme>
+      <CssBaseline />
+      <Theme>
         {/* <NavBar setAuthenticated={setAuthenticated} /> */}
         <Route path="/login" exact={true}>
           <LoginForm

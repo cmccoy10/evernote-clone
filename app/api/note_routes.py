@@ -4,6 +4,8 @@ from app.models import Note, Tag, note_tag, db
 from app.forms import NoteForm, NoteUpdateForm, TagForm, NoteTagForm, GetNotes
 from app.api.auth_routes import validation_errors_to_error_messages
 
+import datetime
+
 note_routes = Blueprint('notes', __name__)
 
 
@@ -11,7 +13,7 @@ note_routes = Blueprint('notes', __name__)
 @login_required
 def get_notes():
     user_id = current_user.get_id()
-    notes = Note.query.filter_by(user_id = user_id).all()
+    notes = Note.query.filter_by(user_id=user_id).all()
     return {"notes": [note.to_dict() for note in notes]}
 
 
@@ -22,12 +24,15 @@ def create_note():
     user_id = current_user.get_id()
     form['user_id'].data = user_id
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
         note = Note(
             title=form.data['title'],
             body=form.data['body'],
             user_id=form.data['user_id'],
-            notebook_id=form.data['notebook_id']
+            notebook_id=form.data['notebook_id'],
+            created_on=datetime.datetime.now(),
+            updated_on=datetime.datetime.now()
         )
         db.session.add(note)
         db.session.commit()
@@ -56,6 +61,7 @@ def update_note(id):
         note = Note.query.get(id)
         note.title = form.data['title']
         note.body = form.data['body']
+        note.updated_on = datetime.datetime.now()
         db.session.commit()
         return note.to_dict()
 
@@ -68,13 +74,13 @@ def create_note_tag(id):
     form['user_id'].data = user_id
     form['csrf_token'].data = request.cookies['csrf_token']
     tag_name = form.data['name']
-    tag = Tag.query.filter_by(name = tag_name, user_id = user_id).first()
+    tag = Tag.query.filter_by(name=tag_name, user_id=user_id).first()
 
     if tag:
         note = Note.query.get(id)
         tag.notes.append(note)
         db.session.commit()
-        return {"note_id":note.id}
+        return {"note_id": note.id}
     else:
         if form.validate_on_submit():
             new_tag = Tag(
@@ -95,4 +101,4 @@ def delete_note_tag(note_id, tag_id):
     tag = Tag.query.get(tag_id)
     tag.notes.remove(note)
     db.session.commit()
-    return {"message":"Successful"}
+    return {"message": "Successful"}
