@@ -52,7 +52,7 @@ const Notebooks = () => {
   const notebookTitles = Object.values(notebooks).map((notebook) => (
     <div
       key={notebook.id}
-      className={notebook.id === currentNotebook ? "current-notebook" : null}
+      className={notebook.id === currentNotebook ? "selected" : null}
     >
       <li
         style={{ marginLeft: "45px" }}

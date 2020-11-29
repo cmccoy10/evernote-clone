@@ -8,7 +8,6 @@
 
 .allnotes-link-container {
   position: relative;
-  left: 30px;
 }
 
 .sidebar-link {
@@ -40,7 +39,7 @@
   font-weight: bold;
 }
 
-.current-notebook {
+.selected {
   background-color: #404040;
   color: white;
 }
