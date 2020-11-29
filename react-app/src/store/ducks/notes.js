@@ -60,8 +60,9 @@ export const editNote = ({ id, note }) => async (dispatch, getState) => {
   }
 };
 
-export const deleteNote = ({ id }) => async (dispatch, getState) => {
-  const response = await fetch(`/api/notes/${id}`, {
+export const deleteNote = ({ id, notebook }) => async (dispatch, getState) => {
+
+    const response = await fetch(`/api/notes/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -69,6 +70,7 @@ export const deleteNote = ({ id }) => async (dispatch, getState) => {
   });
   if (response.ok) {
     dispatch(remove(id));
+
   }
 };
 
@@ -87,6 +89,11 @@ export const createNote = (notebook_id) => async (dispatch, getState) => {
 
   if (response.ok) {
     const note = await response.json();
+    const date = Date.parse(note.updated_on);
+    const state = Object.values(getState().notes)
+    console.log(state)
+    console.log((date));
+
     dispatch(add(note));
     dispatch(setCurrentNote(note.id));
   }

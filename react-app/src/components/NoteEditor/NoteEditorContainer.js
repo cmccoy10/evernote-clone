@@ -8,38 +8,21 @@ import "./NoteEditor.css";
 import { useSelector } from "react-redux";
 import { createNote } from "../../store/ducks/notes";
 
-const useStyles = makeStyles((theme) => ({
-  richTextEditorContainer: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  headerContainer: {
-    height: "8vh",
-    border: "thin solid black",
-  },
-  editorContainer: {
-    // height: '90vh',
-    border: "thin solid black",
-  },
-  footerContainer: {
-    height: "6vh",
-    border: "thin solid black",
-  },
-}));
 
-const NoteEditorContainer = ({ message }) => {
-  const currentNote = useSelector((state) => state.currentNote);
+const NoteEditorContainer = ({ message, notebookId }) => {
+  const currentNote = useSelector(state => state.currentNote);
+  const notebook = useSelector(state => state.notebooks[notebookId]);
   const [text, setText] = useState(message);
   const [edited, setEdited] = useState(false);
 
-  console.log("message", message);
   const handleChange = (value) => {
     setText(value);
     setEdited(true);
   };
 
   const handleCancel = () => {
-    // dispatch();
+    setText(message);
+    setEdited(false);
   };
 
   useEffect(() => {
@@ -54,6 +37,7 @@ const NoteEditorContainer = ({ message }) => {
           note={text}
           id={currentNote}
           edited={edited}
+          notebook={notebook}
           handleCancel={handleCancel}
         />
       </Box>

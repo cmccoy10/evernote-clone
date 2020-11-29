@@ -6,6 +6,6 @@ from wtforms.validators import DataRequired
 
 
 class NotebookForm(FlaskForm):
-    title = StringField("title")
+    title = StringField("title", [DataRequired()])
     owner_id = IntegerField("owner_id")
     is_default = BooleanField("is_default")

@@ -52,7 +52,7 @@ const Main = () => {
   const classes = useStyles();
 
   const message = note ? note.title + note.body : null;
-  console.log(message);
+  const notebookId = note ? note.notebook_id : null;
 
   return (
     <Box display="flex" direction="row" className={classes.main}>
@@ -64,7 +64,7 @@ const Main = () => {
       </Box>
       {note ? (
         <Box className={classes.noteEditorContainer}>
-          <NoteEditorContainer message={message} />
+          <NoteEditorContainer message={message} notebookId={notebookId}/>
         </Box>
       ) : null}
     </Box>

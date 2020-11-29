@@ -13,6 +13,9 @@ const theme = createMuiTheme({
     },
     other: {
       main: "#a6a6a6"
+    },
+    delete: {
+      main: "#e31c1b"
     }
   }
 });

@@ -4,6 +4,8 @@ import { Box, Button, Typography, IconButton } from '@material-ui/core';
 import { LibraryBooks, Delete } from "@material-ui/icons"
 import { deleteNote, editNote } from '../../store/ducks/notes';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import NoteDeleteModal from './NoteDeleteModal';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,9 +33,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NoteHeader = ({ id, note, edited, handleCancel }) => {
+const NoteHeader = ({ id, note, edited, handleCancel, notebook }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const [open, setOpen] = useState(false)
 
     const handleSave = () => {
         dispatch(editNote({
@@ -42,16 +45,22 @@ const NoteHeader = ({ id, note, edited, handleCancel }) => {
         }))
     }
 
-    const handleDelete = () => {
-        dispatch(deleteNote({ id }))
-    }
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
     return (
         <Box className={classes.headerContainer}>
             <Box>
                 <Button className={classes.notebookButton}>
                     <LibraryBooks color="secondary"/>
                     <Box className={classes.notebookText}>
-                        First Notebook
+                        {notebook.title}
                     </Box>
                 </Button>
             </Box>
@@ -59,18 +68,19 @@ const NoteHeader = ({ id, note, edited, handleCancel }) => {
                 {edited ?
                 <Box className={classes.buttonsContainer}>
                     <Box>
-                        <Button className={classes.margin} size="small" color="other" variant="contained" disableElevation onClick={() => handleCancel()}>Cancel</Button>
+                        <Button className={classes.margin} size="small" color="other" variant="contained" disableElevation onClick={handleCancel}>Cancel</Button>
                     </Box>
                     <Box>
-                        <Button className={classes.margin} size="small" color="secondary" variant="contained" disableElevation onClick={() => handleSave()}>Save</Button>
+                        <Button className={classes.margin} size="small" color="secondary" variant="contained" disableElevation onClick={handleSave}>Save</Button>
                     </Box>
                 </Box>
                 : null}
                 <Box>
-                    <IconButton size="small" className={classes.margin} onClick={() => handleDelete()}>
+                    <IconButton size="small" className={classes.margin} onClick={handleClickOpen}>
                         <Delete color="primary" />
                     </IconButton>
                 </Box>
+                <NoteDeleteModal open={open} onClose={handleClose} id={id} notebook={notebook}/>
             </Box>
         </Box>
     );
