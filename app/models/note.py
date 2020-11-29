@@ -13,8 +13,8 @@ class Note(db.Model):
                             db.ForeignKey
                             ("notebooks.id"),
                             nullable=False)
-    created_on = db.Column(db.DateTime, server_default=db.func.now())
-    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    created_on = db.Column(db.String)
+    updated_on = db.Column(db.String)
 
     tags = db.relationship("Tag", secondary=note_tags, back_populates="notes")
 

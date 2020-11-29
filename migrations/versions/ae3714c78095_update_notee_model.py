@@ -1,8 +1,8 @@
-"""Create migrations
+"""update notee model
 
-Revision ID: b0e6a61c5daa
+Revision ID: ae3714c78095
 Revises: 
-Create Date: 2020-11-24 16:37:45.890163
+Create Date: 2020-11-28 16:03:30.344972
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b0e6a61c5daa'
+revision = 'ae3714c78095'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,7 +29,7 @@ def upgrade():
     )
     op.create_table('notebooks',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=30), nullable=True),
+    sa.Column('title', sa.String(length=30), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('is_default', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
@@ -48,8 +48,8 @@ def upgrade():
     sa.Column('body', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('notebook_id', sa.Integer(), nullable=False),
-    sa.Column('created_on', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updated_on', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('created_on', sa.String(), nullable=True),
+    sa.Column('updated_on', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['notebook_id'], ['notebooks.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

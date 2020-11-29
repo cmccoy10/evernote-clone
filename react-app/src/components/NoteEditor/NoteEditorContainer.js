@@ -44,6 +44,7 @@ const NoteEditorContainer = ({ message }) => {
 
   useEffect(() => {
     setText(message);
+    setEdited(false);
   }, [message]);
 
   return (
