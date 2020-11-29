@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,18 +20,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AllNotes = () => {
+  const [selected, setSelected] = useState(false);
   const dispatch = useDispatch();
   const currentNotebook = useSelector((state) => state.currentNotebook);
-  const defaultNotebookId = 5;
+
   const handleClick = async () => {
-    await dispatch(setCurrentNotebook(defaultNotebookId));
+    setSelected(true);
+    await dispatch(setCurrentNotebook(null));
   };
 
   const classes = useStyles();
   return (
     <div
       className={
-        defaultNotebookId === currentNotebook
+        selected && currentNotebook === null
           ? `allnotes-link-container ${"selected"}`
           : `allnotes-link-container`
       }
