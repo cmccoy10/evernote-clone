@@ -16,16 +16,27 @@ export const newNotebook = (notebook) => ({
 });
 
 export const createNotebook = (title) => async (dispatch) => {
-  const res = await fetch(`/api/notebooks`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ title }),
-  });
-  if (res.ok) {
-    const notebook = await res.json();
-    dispatch(newNotebook(notebook));
+  try {
+    const res = await fetch(`/api/notebooks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title }),
+    });
+    if (res.ok) {
+      const notebook = await res.json();
+
+      dispatch(newNotebook(notebook));
+    } else {
+      throw res;
+    }
+  } catch (err) {
+    const badRequest = await err.json();
+    const errors = badRequest.errors[0];
+    return {
+      errors: errors,
+    };
   }
 };
 
@@ -36,7 +47,6 @@ export const getNotebooks = () => async (dispatch, getState) => {
         "Content-Type": "application/json",
       },
     });
-
     if (response.ok) {
       const list = await response.json();
       dispatch(load_notebooks(list.notebooks));
@@ -57,17 +67,11 @@ export default function reducer(state = {}, action) {
     }
 
     case NEW_NOTEBOOK: {
-      return {
-        ...state,
-        [action.notebook.notebook[0].id]: {
-          id: action.notebook.notebook[0].id,
-          title: action.notebook.notebook[0].title,
-          owner_id: action.notebook.notebook[0].owner_id,
-          is_default: action.notebook.notebook[0].is_default,
-          notes: [...action.notebook.notebook[0].notes],
-        },
-      };
+      let newState = { ...state };
+      newState[action.notebook.id] = action.notebook;
+      return { ...newState };
     }
+
     default:
       return state;
   }

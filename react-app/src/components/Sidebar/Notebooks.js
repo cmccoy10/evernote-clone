@@ -48,9 +48,10 @@ const Notebooks = () => {
   const [collapseList, setCollapseList] = useState(false);
   const classes = useStyles();
   const notebooks = useSelector((state) => state.notebooks);
+
   const notebookTitles = Object.values(notebooks).map((notebook) => (
     <div
-      key={notebook.title}
+      key={notebook.id}
       className={notebook.id === currentNotebook ? "current-notebook" : null}
     >
       <li
