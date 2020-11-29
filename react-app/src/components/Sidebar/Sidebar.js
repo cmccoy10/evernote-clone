@@ -44,8 +44,17 @@ const Sidebar = ({ setAuthenticated }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentNotebook = useSelector((state) => state.currentNotebook);
+  const notebooks = useSelector((state) => state.notebooks);
+  const defaultNotebookId = Object.values(notebooks)
+    .filter((notebook) => {
+      return notebook.is_default === true;
+    })
+    .map((notebook) => notebook.id)[0];
 
   const handleCreateNote = () => {
+    if (!currentNotebook) {
+      dispatch(createNote(defaultNotebookId));
+    }
     dispatch(createNote(currentNotebook));
   };
 

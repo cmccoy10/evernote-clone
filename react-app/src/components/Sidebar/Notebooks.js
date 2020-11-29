@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const Notebooks = () => {
   const dispatch = useDispatch();
   const currentNotebook = useSelector((state) => state.currentNotebook);
-
+  const notebooks = useSelector((state) => state.notebooks);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -47,11 +47,11 @@ const Notebooks = () => {
 
   const [collapseList, setCollapseList] = useState(false);
   const classes = useStyles();
-  const notebooks = useSelector((state) => state.notebooks);
+
   const notebookTitles = Object.values(notebooks).map((notebook) => (
     <div
-      key={notebook.title}
-      className={notebook.id === currentNotebook ? "current-notebook" : null}
+      key={notebook.id}
+      className={notebook.id === currentNotebook ? "selected" : null}
     >
       <li
         style={{ marginLeft: "45px" }}
