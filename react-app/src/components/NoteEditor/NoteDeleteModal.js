@@ -24,9 +24,10 @@ const useStyles = makeStyles((theme) => ({
 const NoteDeleteModal = (props) => {
     const dispatch = useDispatch();
     const id = props.id;
+    const notebook = props.notebook;
 
     const handleDelete = () => {
-        dispatch(deleteNote({ id }));
+        dispatch(deleteNote({ id, notebook }));
         props.onClose();
     }
 

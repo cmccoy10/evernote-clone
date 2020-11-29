@@ -80,7 +80,7 @@ const NoteHeader = ({ id, note, edited, handleCancel, notebook }) => {
                         <Delete color="primary" />
                     </IconButton>
                 </Box>
-                <NoteDeleteModal open={open} onClose={handleClose} id={id}/>
+                <NoteDeleteModal open={open} onClose={handleClose} id={id} notebook={notebook}/>
             </Box>
         </Box>
     );
