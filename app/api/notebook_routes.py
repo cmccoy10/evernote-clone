@@ -33,12 +33,15 @@ def create_notebook():
     form['owner_id'].data = user_id
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        notebook = Notebook(owner_id=form.data['owner_id'], title=form.data['title'])
-        db.session.add(notebook)
-        db.session.commit()
-        return jsonify(notebook=[notebook.to_dict()])
-    # return jsonify(error={'msg': e._message()})
-    return {'errors': validation_errors_to_error_messages(form.errors)}
+        try:
+            notebook = Notebook(
+                owner_id=form.data['owner_id'], title=form.data['title'])
+            db.session.add(notebook)
+            db.session.commit()
+            return notebook.to_dict()
+        except SQLAlchemyError as e:
+            return jsonify(error={'msg': e._message()})
+    return {'errors': 'Please provide a name for your notebook.'}, 400
 
 
 @notebook_routes.route('/<int:notebookId>', methods=['POST'])

@@ -15,16 +15,28 @@ const NewNotebookForm = (props) => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
+  const [errors, setErrors] = useState([]);
 
   const updateTitle = (e) => {
     setTitle(e.target.value);
   };
 
   const handleSubmit = async () => {
-    await dispatch(createNotebook(title));
-    props.onClose();
+    const newNotebook = await dispatch(createNotebook(title));
+    if (newNotebook && "errors" in newNotebook) {
+      setErrors(newNotebook["errors"]);
+    }
+    setTitle("");
+    if (title) {
+      setErrors([]);
+      props.onClose();
+    }
   };
 
+  const handleCancel = () => {
+    setErrors([]);
+    props.onClose();
+  };
   return (
     <div>
       <Dialog
@@ -47,8 +59,9 @@ const NewNotebookForm = (props) => {
             />
           </form>
         </DialogContent>
+        <div className="form-errors">{errors}</div>
         <DialogActions>
-          <Button onClick={props.onClose}>Cancel</Button>
+          <Button onClick={handleCancel}>Cancel</Button>
           <Button onClick={handleSubmit}>Save</Button>
         </DialogActions>
       </Dialog>
