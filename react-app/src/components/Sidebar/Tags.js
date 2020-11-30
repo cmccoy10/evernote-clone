@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Tags = () => {
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [collapseList, setCollapseList] = useState(false);
   const classes = useStyles();
   const tags = useSelector((state) => state.tags);

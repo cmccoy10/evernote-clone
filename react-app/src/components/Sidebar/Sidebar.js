@@ -9,6 +9,8 @@ import Notebooks from "./Notebooks";
 import Tags from "./Tags";
 import { createNote } from "../../store/ducks/notes";
 import { useDispatch, useSelector } from "react-redux";
+import TagsList from './TagsList'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,6 +90,7 @@ const Sidebar = ({ setAuthenticated }) => {
         </List>
         <Divider />
       </Drawer>
+      <TagsList />
     </div>
   );
 };

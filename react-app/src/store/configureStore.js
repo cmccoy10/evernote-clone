@@ -6,6 +6,7 @@ import notes from "./ducks/notes";
 import tags from "./ducks/tags";
 import currentNote from "./ducks/currentNote";
 import currentNotebook from "./ducks/currentNotebook";
+import currentTag from './ducks/currentTag';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   currentNote,
   currentNotebook,
   tags,
+  currentTag
 });
 
 const configureStore = (initialState) => {
