@@ -33,7 +33,7 @@
 
 .note-div__selected {
   cursor: pointer;
-  border: 1px solid green;
+  border: 1px solid #88aabb;
   height: fit-content;
 }
 
