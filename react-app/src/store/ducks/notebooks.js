@@ -25,7 +25,7 @@ export const deleteNotebook = (notebookId) => ({
   notebookId
 })
 
-export const renameNotebook = ({ notebook }) => ({
+export const renameNotebook = ( notebook ) => ({
   type: RENAME_NOTEBOOK,
   notebook,
 })
@@ -44,13 +44,13 @@ export const handleRenameNotebook = (notebookId, newTitle) => async (dispatch) =
     });
     if (res.ok) {
       const notebook = await res.json();
-      // console.log('notebook', notebook)
+      console.log('notebook', notebook)
       dispatch(renameNotebook(notebook));
     } else {
       throw res;
     }
   } catch (err) {
-    console.log(err)
+    console.log("ERROR", err)
     const badRequest = await err.json();
     const errors = badRequest.errors;
     return {
@@ -159,9 +159,9 @@ export default function reducer(state = {}, action) {
       return { ...newState };
     }
     case RENAME_NOTEBOOK: {
-      console.log(action.notebook[0], 'notebook')
+      // console.log(action.notebook[0], 'notebook')
       const newState = { ...state };
-      newState[action.notebook[0].id] = action.notebook[0]
+      newState[action.notebook.id] = action.notebook
       return {...newState }
     }
     case DELETE_NOTEBOOK: {
