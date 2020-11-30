@@ -74,10 +74,12 @@ const SignUpForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
       <h1>Welcome to Clevernote</h1>
       <div className="form-container">
         <form onSubmit={onSignUp}>
-          <div>
-            {errors.map((error) => (
-              <div>{error}</div>
-            ))}
+          <div className="form-errors">
+            <div>
+              {errors.map((error) => (
+                <div key={error}>{error}</div>
+              ))}
+            </div>
           </div>
           <div>
             <label>First Name</label>
@@ -122,7 +124,6 @@ const SignUpForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
               name="repeat_password"
               onChange={updateRepeatPassword}
               value={repeatPassword}
-              required={true}
             ></input>
           </div>
           <Button className={classes.button} type="submit">

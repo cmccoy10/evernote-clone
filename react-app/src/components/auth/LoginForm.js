@@ -60,7 +60,7 @@ const LoginForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
         <form onSubmit={onLogin}>
           <div className="form-errors">
             {errors.map((error) => (
-              <div>{error}</div>
+              <div key={error}>{error}</div>
             ))}
           </div>
           <div>
