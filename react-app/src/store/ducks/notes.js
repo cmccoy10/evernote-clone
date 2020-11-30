@@ -1,6 +1,6 @@
 import merge from "lodash/merge";
 import { setCurrentNote } from "./currentNote";
-import { getNotebooks } from "./notebooks";
+import { getNotebooks, removeNote, newNote } from "./notebooks";
 // import { baseUrl } from "../../config";
 // Constants
 const LOAD_NOTES = "clevernote/notes/load";
@@ -69,6 +69,7 @@ export const deleteNote = ({ id, notebook }) => async (dispatch, getState) => {
   });
   if (response.ok) {
     dispatch(remove(id));
+    dispatch(removeNote(notebook.id, id));
   }
 };
 
@@ -87,14 +88,10 @@ export const createNote = (notebook_id) => async (dispatch, getState) => {
 
   if (response.ok) {
     const note = await response.json();
-    const date = Date.parse(note.updated_on);
-    const state = Object.values(getState().notes);
-    console.log(state);
-    console.log(date);
-
     dispatch(add(note));
+    dispatch(newNote(notebook_id, note.id));
     dispatch(setCurrentNote(note.id));
-    dispatch(getNotebooks());
+    // dispatch(getNotebooks());
   }
 };
 

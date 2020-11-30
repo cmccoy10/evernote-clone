@@ -1,4 +1,4 @@
-.note-container,
+/* .note-container, */
 .notes-header {
   padding: 5px 10px;
   border-top: 1px solid #e6e6e6;
@@ -6,7 +6,43 @@
   overflow: hidden;
 }
 
+.note-container {
+  padding: 5px 10px;
+}
 .notes-list-container {
   overflow: scroll;
   height: 100vh;
+}
+
+.tagContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.tagItem {
+  margin-left: 8px;
+  margin-top: 8px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+}
+
+.note-div {
+  cursor: pointer;
+  height: fit-content;
+}
+
+.note-div__selected {
+  cursor: pointer;
+  border: 1px solid green;
+  height: fit-content;
+}
+
+.note-body-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 16px;    
+  max-height: 32px;     
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
 }

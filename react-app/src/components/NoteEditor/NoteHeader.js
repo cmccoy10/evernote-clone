@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NoteHeader = ({ id, note, edited, handleCancel, notebook }) => {
+const NoteHeader = ({ id, note, edited, handleCancel, notebook, notes }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
@@ -80,7 +80,7 @@ const NoteHeader = ({ id, note, edited, handleCancel, notebook }) => {
                         <Delete color="primary" />
                     </IconButton>
                 </Box>
-                <NoteDeleteModal open={open} onClose={handleClose} id={id} notebook={notebook}/>
+                <NoteDeleteModal open={open} onClose={handleClose} id={id} notebook={notebook} notes={notes}/>
             </Box>
         </Box>
     );
