@@ -48,12 +48,14 @@ def create_notebook():
 # @login_required
 def update_notebook(notebookId):
     form = NotebookForm()
-    if form.validate_on_submit():
-        title = request.form['title']
+    if True:
+        # print(form.data, 'data')
+        title = form.data['title']
+        print(title, notebookId)
         try:
             notebook = Notebook.query.get(notebookId)
             notebook.title = title
-            db.session.commit(notebook)
+            db.session.commit()
             return jsonify(notebook=[notebook.to_dict()])
         except SQLAlchemyError as e:
             db.session.rollback()

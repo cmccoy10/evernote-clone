@@ -1,7 +1,10 @@
 import merge from "lodash/merge";
-
+import {setCurrentNotebook} from './currentNotebook'
 const LOAD_NOTEBOOKS = "clevernote/notebooks/load";
 const NEW_NOTEBOOK = "clevernote/notebooks/new";
+const DELETE_NOTEBOOK = "clevernote/notebooks/delete";
+const RENAME_NOTEBOOK = "clevernote/notebooks/rename";
+
 
 export const load_notebooks = (list) => {
   return {
@@ -14,6 +17,70 @@ export const newNotebook = (notebook) => ({
   type: NEW_NOTEBOOK,
   notebook,
 });
+
+export const deleteNotebook = (notebookId) => ({
+  type: DELETE_NOTEBOOK,
+  notebookId
+})
+
+export const renameNotebook = ({ notebook }) => ({
+  type: RENAME_NOTEBOOK,
+  notebook,
+})
+
+
+//thunks
+export const handleRenameNotebook = (notebookId, newTitle) => async (dispatch) => {
+  console.log('inside think')
+  try {
+    const res = await fetch(`/api/notebooks/${notebookId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title: newTitle }),
+    });
+    if (res.ok) {
+      const notebook = await res.json();
+      // console.log('notebook', notebook)
+      dispatch(renameNotebook(notebook));
+    } else {
+      throw res;
+    }
+  } catch (err) {
+    console.log(err)
+    const badRequest = await err.json();
+    const errors = badRequest.errors;
+    return {
+      errors: errors,
+    };
+  }
+};
+
+export const handleDeleteNotebook = (notebookId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/notebooks/${notebookId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.ok) {
+      // const notebook = await res.json();
+      dispatch(setCurrentNotebook(null))
+      dispatch(deleteNotebook(notebookId));
+    } else {
+      throw res;
+    }
+  } catch (err) {
+    console.log(err, 'err delete')
+    const badRequest = await err.json();
+    const errors = badRequest.errors;
+    return {
+      errors: errors,
+    };
+  }
+};
 
 export const createNotebook = (title) => async (dispatch) => {
   try {
@@ -56,6 +123,7 @@ export const getNotebooks = () => async (dispatch, getState) => {
   }
 };
 
+//reducer
 export default function reducer(state = {}, action) {
   Object.freeze(state);
   switch (action.type) {
@@ -71,7 +139,17 @@ export default function reducer(state = {}, action) {
       newState[action.notebook.id] = action.notebook;
       return { ...newState };
     }
-
+    case RENAME_NOTEBOOK: {
+      console.log(action.notebook[0], 'notebook')
+      const newState = { ...state };
+      newState[action.notebook[0].id] = action.notebook[0]
+      return {...newState }
+    }
+    case DELETE_NOTEBOOK: {
+      const newState = {...state}
+      delete newState[action.notebookId]
+      return {...newState}
+    }
     default:
       return state;
   }
