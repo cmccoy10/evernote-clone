@@ -7,7 +7,7 @@ export const setCurrentNote = (current) => ({ type: SET_CURRENT, current });
 // Thunks
 
 // Reducer
-export default function reducer(state = 13, action) {
+export default function reducer(state = null, action) {
   switch (action.type) {
     case SET_CURRENT: {
       return action.current;

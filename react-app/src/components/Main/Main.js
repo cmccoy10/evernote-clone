@@ -40,7 +40,8 @@ const Main = () => {
     notesListContainer: {
       height: "100vh",
       width: "30%",
-      border: "thin solid black",
+      border: "thin solid #e6e6e6",
+      backgroundColor: "#f8f8f8",
     },
     noteEditorContainer: {
       height: "100vh",
@@ -64,7 +65,7 @@ const Main = () => {
       </Box>
       {note ? (
         <Box className={classes.noteEditorContainer}>
-          <NoteEditorContainer message={message} notebookId={notebookId}/>
+          <NoteEditorContainer message={message} notebookId={notebookId} />
         </Box>
       ) : null}
     </Box>
