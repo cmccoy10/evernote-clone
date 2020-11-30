@@ -134,11 +134,7 @@ const TagsList = ({ openDrawer, setOpenDrawer }) => {
     );
 
     let tags = useSelector((state) => Object.values(state.tags))
-    // tags = (tags)
-
-    useEffect(() => {
-        dispatch(getTags())
-    }, [tags.length])
+    
 
     return (
         <div>

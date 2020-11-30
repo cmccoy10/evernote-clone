@@ -21,10 +21,13 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 0,
     paddingRight: 0,
   },
+  openDrawer: {
+    cursor: 'pointer'
+  }
 }));
 
-const Tags = () => {
-  const [openDrawer, setOpenDrawer] = useState(false);
+const Tags = ({ openDrawer, setOpenDrawer }) => {
+  // const [openDrawer, setOpenDrawer] = useState(false);
   const [collapseList, setCollapseList] = useState(false);
   const classes = useStyles();
   const tags = useSelector((state) => state.tags);
@@ -37,6 +40,9 @@ const Tags = () => {
       <span style={{ fontSize: ".8em" }}>{tag.name}</span>
     </li>
   ));
+  const handleDrawerOpen = () => {
+    setOpenDrawer(!openDrawer);
+  };
 
   return (
     <>
@@ -56,8 +62,10 @@ const Tags = () => {
             />
           )}
         </ListItemIcon>
+        <div onClick={handleDrawerOpen} className={classes.openDrawer}>
         <FontAwesomeIcon icon={faTag} className={classes.icon} />
         Tags
+        </div>
       </ListItem>
       {collapseList ? tagTitles : null}
     </>

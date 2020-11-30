@@ -47,7 +47,7 @@ const NoteEditorContainer = ({ message, notebookId }) => {
         <ReactQuill placeholder="Title" value={text} onChange={handleChange} />
       </Box>
       <Box className="footerContainer">
-        <NoteFooter />
+        <NoteFooter id={currentNote} />
       </Box>
     </Box>
   );

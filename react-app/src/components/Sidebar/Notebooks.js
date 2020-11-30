@@ -8,6 +8,7 @@ import ArrowRight from "@material-ui/icons/ArrowRight";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import NewNotebookForm from "./NewNotebookForm";
 import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
+import { setCurrentTag } from '../../store/ducks/currentTag'
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,6 +43,7 @@ const Notebooks = () => {
 
   const setCurrent = async (index) => {
     await dispatch(setCurrentNotebook(index));
+    await dispatch(setCurrentTag(null));
   };
 
   const [collapseList, setCollapseList] = useState(false);

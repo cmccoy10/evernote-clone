@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
 import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
+import { setCurrentTag } from '../../store/ducks/currentTag'
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -27,6 +28,7 @@ const AllNotes = () => {
   const handleClick = async () => {
     setSelected(true);
     await dispatch(setCurrentNotebook(null));
+    await dispatch(setCurrentTag(null));
   };
 
   const classes = useStyles();

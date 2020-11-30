@@ -7,12 +7,18 @@ const LOAD_NOTES = "clevernote/notes/load";
 const UPDATE_NOTE = "clevernote/notes/update_note";
 const REMOVE_NOTE = "clevernote/notes/remove_note";
 const ADD_NOTE = "clevernote/notes/add_note";
+const ADD_TAG_REL = "clevernote/notes/addTagRelation"
+const REMOVE_TAG_REL = "clevernote/notes/removeTagRelation"
 
 // Actions
 export const load = (notes) => ({ type: LOAD_NOTES, notes });
 export const update = (note) => ({ type: UPDATE_NOTE, note });
 export const remove = (noteId) => ({ type: REMOVE_NOTE, noteId });
 export const add = (note) => ({ type: ADD_NOTE, note });
+
+export const addTagRelation = (tagId, noteId) => ({ type: ADD_TAG_REL, tagId, noteId })
+
+export const removeTagRelation = (tagId, noteId) => ({ type: REMOVE_TAG_REL, tagId, noteId })
 
 // Thunks
 export const getNotes = () => async (dispatch, getState) => {
@@ -95,6 +101,8 @@ export const createNote = (notebook_id) => async (dispatch, getState) => {
   }
 };
 
+
+
 // Reducer
 export default function reducer(state = {}, action) {
   switch (action.type) {
@@ -117,6 +125,19 @@ export default function reducer(state = {}, action) {
       newState[action.note.id] = action.note;
       return { ...newState };
     }
+    case ADD_TAG_REL: {
+      let newState = { ...state };
+      newState[action.noteId].tags.push(action.tagId);
+      return newState;
+    }
+
+    case REMOVE_TAG_REL: {
+      let newState = { ...state };
+      const idx = newState[action.noteId].tags.indexOf(action.tagId)
+      newState[action.noteId].tags.splice(idx, 1)
+      return newState;
+    }
+
     default:
       return state;
   }

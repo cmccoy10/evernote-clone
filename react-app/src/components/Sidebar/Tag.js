@@ -14,6 +14,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { updateTag, deleteTag } from '../../store/ducks/tags';
 import { setCurrentTag } from '../../store/ducks/currentTag';
+import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -119,19 +120,17 @@ const Tag = ({ tag, setOpenDrawer, openDrawer }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = (e) => {
-        console.log('new')
         setOpen(true);
     }
 
     const handleClose = (e) => {
-        console.log('close')
         setOpen(false);
     }
 
-    const handleClick = () => {
-        console.log(tag)
-        dispatch(setCurrentTag(tag.id))
+    const handleClick = async () => {
         setOpenDrawer(false)
+        await dispatch(setCurrentTag(tag.id))
+        await dispatch(setCurrentNotebook(null));
     }
 
     const body = (
@@ -145,15 +144,11 @@ const Tag = ({ tag, setOpenDrawer, openDrawer }) => {
     );
 
     const handleDeleteTag = (id) => {
-        console.log('delete')
         dispatch(deleteTag(id))
     }
-    const editTag = (e) => {
-        console.log('edit')
-    }
+
     const handleEditTagSubmit = (e) => {
         e.preventDefault();
-        console.log(tag, name)
         dispatch(updateTag(tag.id, name))
         setOpen(false);
     }
@@ -185,6 +180,7 @@ const Tag = ({ tag, setOpenDrawer, openDrawer }) => {
                     <div className={classes.tagDialogBox__input}>
                         <div>Name</div>
                         <TextField className={classes.tagDialogBox__inputBar} value={name} onChange={(e) => setName(e.target.value)}>
+                            
                         </TextField>
                     </div>
                     <div className={classes.tagDialogBox__buttons}>
