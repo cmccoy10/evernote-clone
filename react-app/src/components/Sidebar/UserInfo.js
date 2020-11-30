@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
   avatar: {
     marginLeft: "auto",
-    backgroundColor: "#00a82d",
+    backgroundColor: theme.palette.primary.main,
   },
 
   list: {

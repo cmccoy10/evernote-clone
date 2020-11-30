@@ -31,7 +31,21 @@ const NotesList = () => {
     let numNotes = Object.values(notes).length;
   
 
-  Object.values(notes).map((note) => {
+  const sortedAllNotes = Object.values(notes).sort(function (a, b) {
+    const aDate = Date.parse(a.updated_on);
+    const bDate = Date.parse(b.updated_on);
+    if (aDate < bDate) {
+        return 1
+    }
+
+    if (aDate > bDate) {
+        return -1
+    }
+
+    return 0;
+  });
+
+  sortedAllNotes.map((note) => {
     const noteTags = [];
     note.tags.forEach((id) => {
       if (Object.keys(tags).includes(id.toString())) {
@@ -44,21 +58,38 @@ const NotesList = () => {
   if (currentNotebookId) {
     const noteTags = [];
     const filteredNotes = [];
+
     notebooks[currentNotebookId].notes.map((id) => {
       if (Object.keys(notes).includes(id.toString())) {
         filteredNotes.push(notes[id]);
-        console.log("filtered notes", filteredNotes);
-        notes[id].tags.forEach((id) => {
-          if (Object.keys(tags).includes(id.toString())) {
-            noteTags.push(tags[id]);
-          }
-        });
-        filteredNotesDiv.push(
-          <Note key={notes[id].id} note={notes[id]} tags={noteTags} />
-        );
       }
     });
-    numNotes = filteredNotes.length;
+
+    const sortedFilteredNotes = filteredNotes.sort(function (a, b) {
+        const aDate = Date.parse(a.updated_on);
+        const bDate = Date.parse(b.updated_on);
+        if (aDate < bDate) {
+            return 1
+        }
+
+        if (aDate > bDate) {
+            return -1
+        }
+
+        return 0;
+    });
+
+    sortedFilteredNotes.forEach(note => {
+        note.tags.forEach((id) => {
+            if (Object.keys(tags).includes(id.toString())) {
+                noteTags.push(tags[id]);
+            }
+        });
+        filteredNotesDiv.push(
+            <Note key={note.id} note={note} tags={noteTags} />
+        );
+    })
+    numNotes = sortedFilteredNotes.length;
   }
 
   return (

@@ -15,17 +15,39 @@ import { getTags } from "../../store/ducks/tags";
 const Main = () => {
   const currentNote = useSelector((state) => state.currentNote);
   const note = useSelector((state) => state.notes[currentNote]);
+  const notes = useSelector(state => state.notes)
+  const currentNotebookId = useSelector(state => state.currentNotebook);
   const dispatch = useDispatch();
+
+//   const nextCurrentNote = () => {
+//     if (!currentNotebookId) {
+//         const initialNote = Object.values(notes)[0];
+//         return Object.values(notes).reduce((max, note) => {
+//             if (!max) return null;
+//                 const noteDate = Date.parse(note.updated_on);
+//                 const maxDate = Date.parse(max.updated_on);
+//             if (noteDate > maxDate) {
+//                 return max = note;
+//             } else {
+//                 return max;
+//             }
+//         }, initialNote)
+//     }
+//   }
+//   const nextNote = nextCurrentNote();
+//   const nextId = nextNote ? nextNote.id : null;
+
 
   useEffect(() => {
     (async () => {
       await dispatch(getNotes());
       await dispatch(getNotebooks());
       await dispatch(getTags());
-      // await dispatch(setCurrentNotebook(23));
-      // await dispatch(setCurrentNote(null));
+    //   await dispatch(setCurrentNote(nextId))
     })();
   }, []);
+
+
 
   const useStyles = makeStyles((theme) => ({
     mainContainer: {
