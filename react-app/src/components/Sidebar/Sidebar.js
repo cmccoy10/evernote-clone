@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import UserInfo from "./UserInfo";
 import { Drawer, CssBaseline, Divider, List, Button } from "@material-ui/core";
@@ -53,6 +53,8 @@ const Sidebar = ({ setAuthenticated }) => {
     })
     .map((notebook) => notebook.id)[0];
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   const handleCreateNote = () => {
     if (!currentNotebook) {
       dispatch(createNote(defaultNotebookId));
@@ -86,11 +88,11 @@ const Sidebar = ({ setAuthenticated }) => {
         <List>
           <AllNotes />
           <Notebooks />
-          <Tags />
+          <Tags openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         </List>
         <Divider />
       </Drawer>
-      <TagsList />
+      <TagsList openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
     </div>
   );
 };
