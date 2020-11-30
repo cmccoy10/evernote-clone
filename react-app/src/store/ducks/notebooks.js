@@ -2,6 +2,8 @@ import merge from "lodash/merge";
 
 const LOAD_NOTEBOOKS = "clevernote/notebooks/load";
 const NEW_NOTEBOOK = "clevernote/notebooks/new";
+const REMOVE_NOTE = "clevernote/notebooks/remove_note"
+const ADD_NOTE = "clevernote/notebooks/add_note"
 
 export const load_notebooks = (list) => {
   return {
@@ -13,6 +15,18 @@ export const load_notebooks = (list) => {
 export const newNotebook = (notebook) => ({
   type: NEW_NOTEBOOK,
   notebook,
+});
+
+export const newNote = (notebookId, noteId) => ({
+  type: ADD_NOTE,
+  notebookId,
+  noteId,
+});
+
+export const removeNote = (notebookId, noteId) => ({
+  type: REMOVE_NOTE,
+  notebookId,
+  noteId,
 });
 
 export const createNotebook = (title) => async (dispatch) => {
@@ -56,6 +70,12 @@ export const getNotebooks = () => async (dispatch, getState) => {
   }
 };
 
+
+function removeItem(array, action) {
+    return array.filter((note) => note !== action.noteId)
+}
+
+
 export default function reducer(state = {}, action) {
   Object.freeze(state);
   switch (action.type) {
@@ -70,6 +90,19 @@ export default function reducer(state = {}, action) {
       let newState = { ...state };
       newState[action.notebook.id] = action.notebook;
       return { ...newState };
+    }
+
+    case ADD_NOTE: {
+        let newState = { ...state };
+        newState[action.notebookId].notes.push(action.noteId);
+        return { ...newState }
+    }
+
+    case REMOVE_NOTE: {
+        let newState = { ...state };
+        const notes = removeItem(newState[action.notebookId].notes, action);
+        newState[action.notebookId].notes = notes;
+        return { ...newState }
     }
 
     default:

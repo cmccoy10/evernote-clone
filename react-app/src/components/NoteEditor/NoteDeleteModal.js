@@ -12,6 +12,7 @@ import {
 import { deleteNote } from '../../store/ducks/notes';
 import { makeStyles } from "@material-ui/core/styles";
 import { setCurrentNote } from '../../store/ducks/currentNote';
+import { removeNote } from "../../store/ducks/notebooks";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,13 +29,13 @@ const NoteDeleteModal = (props) => {
     const notebook = props.notebook;
     const notes = Object.values(props.notes);
 
-    const nextCurrentNote = () => {
+    const nextCurrentNote = (id) => {
         const initialNote = props.notes[notebook.notes[0]];
         return notes.reduce((max, note) => {
             if (!max) return null;
             const noteDate = Date.parse(note.updated_on);
             const maxDate = Date.parse(max.updated_on);
-            if (notebook.notes.includes(note.id) && noteDate > maxDate) {
+            if (notebook.notes.includes(note.id) && noteDate > maxDate && note.id !== id) {
                 // console.log(("notebook includes note", note))
                 return max = note;
             } else {
@@ -44,8 +45,8 @@ const NoteDeleteModal = (props) => {
     }
 
     const handleDelete = () => {
-        const nextNote = nextCurrentNote();
         dispatch(deleteNote({ id, notebook }));
+        const nextNote = nextCurrentNote(id);
         dispatch(setCurrentNote(nextNote.id))
         props.onClose();
     }
