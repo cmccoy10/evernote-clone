@@ -1,11 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../Main/Main.css";
-import { useDispatch, useSelector } from 'react-redux'
-import { getNotes } from '../../store/ducks/notes'
-import Note from './Note'
+import { useSelector } from "react-redux";
 
-const dispatch = useDispatch()
-const currentNote = useSelector(state => state.currentNote)
-const notes = useSelector(state => state.notes)
-const tags = useSelector(state => state.tags)
+const Header = (props) => {
+  const currentNotebookId = useSelector((state) => state.currentNotebook);
+  const currentNotebook = useSelector(
+    (state) => state.notebooks[currentNotebookId]
+  );
 
+  return (
+    <div className="notes-header">
+      <h3>{currentNotebook ? currentNotebook.title : "All Notes"}</h3>
+      <span> {`${props.numNotes} notes`}</span>
+    </div>
+  );
+};
+
+export default Header;
