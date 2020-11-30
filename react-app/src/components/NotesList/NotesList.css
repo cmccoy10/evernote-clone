@@ -1,0 +1,12 @@
+.note-container,
+.notes-header {
+  padding: 5px 10px;
+  border-top: 1px solid #e6e6e6;
+  height: 120px;
+  overflow: hidden;
+}
+
+.notes-list-container {
+  overflow: scroll;
+  height: 100vh;
+}
