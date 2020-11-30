@@ -21,6 +21,10 @@
     overflow-y: scroll;
   }
 
+  .ql-container.ql-snow {
+    border: none;
+  }
+
   .ql-container::-webkit-scrollbar {
     /* WebKit */
     width: 0;

@@ -35,7 +35,6 @@ const Main = () => {
     sidebarContainer: {
       height: "100vh",
       width: "20%",
-      border: "thin solid black",
     },
     notesListContainer: {
       height: "100vh",
@@ -46,7 +45,6 @@ const Main = () => {
     noteEditorContainer: {
       height: "100vh",
       width: "50%",
-      border: "thin solid black",
     },
   }));
 
