@@ -8,6 +8,7 @@ import ArrowRight from "@material-ui/icons/ArrowRight";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import NewNotebookForm from "./NewNotebookForm";
 import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
+import { setCurrentNote } from "../../store/ducks/currentNote";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -28,11 +29,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Notebooks = () => {
   const dispatch = useDispatch();
-  const currentNotebook = useSelector((state) => state.currentNotebook);
+  const currentNotebookId = useSelector((state) => state.currentNotebook);
   const notebooks = useSelector((state) => state.notebooks);
+  const currentNotebook = notebooks[currentNotebookId];
+  const notes = useSelector(state => state.notes);
   const [open, setOpen] = React.useState(false);
 
-
+  const nextCurrentNote = () => {
+    const initialNote = notes[currentNotebook.notes[0]];
+    return notes.reduce((max, note) => {
+        if (!max) return null;
+        const noteDate = Date.parse(note.updated_on);
+        const maxDate = Date.parse(max.updated_on);
+        if (currentNotebook.notes.includes(note.id) && noteDate > maxDate) {
+            return max = note;
+        } else {
+            return max;
+        }
+    }, initialNote)
+}
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,9 +57,10 @@ const Notebooks = () => {
     setOpen(false);
   };
 
-  const setCurrent = async (index) => {
-    await dispatch(setCurrentNotebook(index));
-    // await dispatch(setCurrentNote())
+  const setCurrent = (index) => {
+    dispatch(setCurrentNotebook(index));
+    const nextNote = nextCurrentNote();
+    dispatch(setCurrentNote(nextNote.id))
   };
 
   const [collapseList, setCollapseList] = useState(false);

@@ -19,31 +19,12 @@ const Main = () => {
   const currentNotebookId = useSelector(state => state.currentNotebook);
   const dispatch = useDispatch();
 
-//   const nextCurrentNote = () => {
-//     if (!currentNotebookId) {
-//         const initialNote = Object.values(notes)[0];
-//         return Object.values(notes).reduce((max, note) => {
-//             if (!max) return null;
-//                 const noteDate = Date.parse(note.updated_on);
-//                 const maxDate = Date.parse(max.updated_on);
-//             if (noteDate > maxDate) {
-//                 return max = note;
-//             } else {
-//                 return max;
-//             }
-//         }, initialNote)
-//     }
-//   }
-//   const nextNote = nextCurrentNote();
-//   const nextId = nextNote ? nextNote.id : null;
-
 
   useEffect(() => {
     (async () => {
       await dispatch(getNotes());
       await dispatch(getNotebooks());
       await dispatch(getTags());
-    //   await dispatch(setCurrentNote(nextId))
     })();
   }, []);
 
