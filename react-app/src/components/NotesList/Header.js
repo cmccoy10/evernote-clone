@@ -15,8 +15,10 @@ const Header = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  
-  const notebooks = useSelector((state) => state.notebooks);
+
+    const notebooks = useSelector((state) => state.notebooks);
+    const currentNotebookId = useSelector((state) => state.currentNotebook);
+    const currentNotebook = notebooks[currentNotebookId];
 
   const defaultNotebookId = Object.values(notebooks)
     .filter((notebook) => {
@@ -25,15 +27,14 @@ const Header = (props) => {
     .map((notebook) => notebook.id)[0];
   
   const handleCreateNote = () => {
-    if (!currentNotebook) {
+    if (!currentNotebookId) {
       dispatch(createNote(defaultNotebookId));
     }
-    dispatch(createNote(currentNotebook));
+    dispatch(createNote(currentNotebookId));
   };
   
    
  
-  const currentNotebook = useSelector((state) => state.currentNotebook);
 
   // console.log(currentNotebook)
   const dispatch = useDispatch()
@@ -50,7 +51,7 @@ const Header = (props) => {
         // dispatch(handleRenameNotebook(currentNotebookId, 'newtitle'))
         break;
       case 'delete':
-        dispatch(handleDeleteNotebook(currentNotebook))
+        dispatch(handleDeleteNotebook(currentNotebookId))
         break;
       default:
         break;
@@ -59,11 +60,11 @@ const Header = (props) => {
   return (
     <div className="notes-header">
       <HeaderModal open={open} handleClose={handleClose}
-        currentNotebookId={currentNotebook}
+        currentNotebookId={currentNotebookId}
         // dispatch={dispatch}
-        noteTitle={currentNotebook && currentNotebook.title}
+        noteTitle={currentNotebookId && currentNotebook.title}
       />
-      <h3>{currentNotebook ? currentNotebook.title : "All Notes"}</h3>
+      <h3>{currentNotebookId ? currentNotebook.title : "All Notes"}</h3>
       <span> {`${props.numNotes} notes`}</span>
       {/* <Button aria-controls="simple-menu" aria-haspopup="true">
         Open Menu
@@ -82,8 +83,8 @@ const Header = (props) => {
       <select defaultValue='more' onChange={e => handleSelect(e)}>
         <option value="more" disabled>--More Actions--</option>
         <option value='add'>Add a new note</option>
-        <option value='edit' disabled={!currentNotebook || (currentNotebook && currentNotebook.is_default) }>Edit Notebook</option>
-        <option value='delete' disabled={!currentNotebook || (currentNotebook && currentNotebook.is_default) }>Delete Notebook</option>
+        <option value='edit' disabled={!currentNotebookId || (currentNotebookId && currentNotebook.is_default) }>Edit Notebook</option>
+        <option value='delete' disabled={!currentNotebookId || (currentNotebookId && currentNotebook.is_default) }>Delete Notebook</option>
       </select>
     </div>
   );
