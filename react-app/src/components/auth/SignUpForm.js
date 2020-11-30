@@ -7,6 +7,8 @@ import { NavLink } from "react-router-dom";
 import "./AuthForm.css";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHippo } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -68,6 +70,7 @@ const SignUpForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
 
   return (
     <div className="container">
+      <FontAwesomeIcon icon={faHippo} size="3x" color="#8ab" />
       <h1>Welcome to Clevernote</h1>
       <div className="form-container">
         <form onSubmit={onSignUp}>
