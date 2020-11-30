@@ -28,7 +28,7 @@ class Note(db.Model):
             "user_id": self.user_id,
             "notebook_id": self.notebook_id,
             "created_on": self.created_on,
-            "updated_on": self.created_on,
+            "updated_on": self.updated_on,
             "tags": [tag.id for tag in self.tags]
         }
 
@@ -40,5 +40,5 @@ class Note(db.Model):
             "user_id": self.user_id,
             "notebook_id": self.notebook_id,
             "created_on": self.created_on,
-            "updated_on": self.created_on,
+            "updated_on": self.updated_on,
         }
