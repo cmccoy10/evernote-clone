@@ -36,7 +36,6 @@ const NoteDeleteModal = (props) => {
             const noteDate = Date.parse(note.updated_on);
             const maxDate = Date.parse(max.updated_on);
             if (notebook.notes.includes(note.id) && noteDate > maxDate && note.id !== id) {
-                // console.log(("notebook includes note", note))
                 return max = note;
             } else {
                 return max;
