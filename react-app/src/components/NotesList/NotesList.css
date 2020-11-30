@@ -10,7 +10,7 @@
   padding: 5px 10px;
 }
 .notes-list-container {
-  overflow: scroll;
+  overflow: auto;
   height: 100vh;
 }
 
