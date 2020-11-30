@@ -12,6 +12,7 @@ import { createNote } from "../../store/ducks/notes";
 const NoteEditorContainer = ({ message, notebookId }) => {
   const currentNote = useSelector(state => state.currentNote);
   const notebook = useSelector(state => state.notebooks[notebookId]);
+  const notes = useSelector(state => state.notes);
   const [text, setText] = useState(message);
   const [edited, setEdited] = useState(false);
 
@@ -38,6 +39,7 @@ const NoteEditorContainer = ({ message, notebookId }) => {
           id={currentNote}
           edited={edited}
           notebook={notebook}
+          notes={notes}
           handleCancel={handleCancel}
         />
       </Box>

@@ -89,11 +89,6 @@ export const createNote = (notebook_id) => async (dispatch, getState) => {
 
   if (response.ok) {
     const note = await response.json();
-    const date = Date.parse(note.updated_on);
-    const state = Object.values(getState().notes)
-    console.log(state)
-    console.log((date));
-
     dispatch(add(note));
     dispatch(setCurrentNote(note.id));
   }
