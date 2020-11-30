@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "unset",
   },
   coloredIcon: {
-    color: "#00a82d",
+    color: theme.palette.primary.main,
   },
   listItem: {
     paddingLeft: 0,

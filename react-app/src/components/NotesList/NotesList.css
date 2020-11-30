@@ -10,7 +10,7 @@
   padding: 5px 10px;
 }
 .notes-list-container {
-  overflow: scroll;
+  overflow: auto;
   height: 100vh;
 }
 
@@ -33,7 +33,7 @@
 
 .note-div__selected {
   cursor: pointer;
-  border: 1px solid green;
+  border: 1px solid #88aabb;
   height: fit-content;
 }
 

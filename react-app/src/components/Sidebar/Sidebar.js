@@ -33,10 +33,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     width: "150px",
     margin: "15px 10px 5px 15px",
-    backgroundColor: "#00a82d",
+    backgroundColor: theme.palette.primary.main,
     color: "white",
     textTransform: "none",
     justifyContent: "flex-start",
+    "&:hover": {
+      backgroundColor: theme.palette.other.main,
+      color: "white",
+    },
   },
 }));
 

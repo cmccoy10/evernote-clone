@@ -17,11 +17,11 @@ def password_matches(form, field):
     password = field.data
     email = form.data['email']
     user = User.query.filter(User.email == email).first()
-    if not user.check_password(password):
+    if user and not user.check_password(password):
         raise ValidationError("Password was incorrect.")
 
 
 class LoginForm(FlaskForm):
-    email = StringField('email', validators=[DataRequired(), user_exists])
+    email = StringField('email', validators=[DataRequired("Please provide an e-mail."), user_exists])
     password = StringField('password', validators=[
-                           DataRequired(), password_matches])
+                           DataRequired("Please provide a password."), password_matches])
