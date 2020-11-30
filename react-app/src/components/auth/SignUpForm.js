@@ -6,8 +6,22 @@ import { loadUser } from "../../store/ducks/user";
 import { NavLink } from "react-router-dom";
 import "./AuthForm.css";
 import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    width: "100%",
+    color: "white",
+    backgroundColor: theme.palette.primary.main,
+    "&:hover": {
+      backgroundColor: theme.palette.dark.main,
+      color: "white",
+    },
+  },
+}));
 
 const SignUpForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
+  const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -108,14 +122,7 @@ const SignUpForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
               required={true}
             ></input>
           </div>
-          <Button
-            style={{
-              width: "100%",
-              color: "white",
-              backgroundColor: " #00a82d",
-            }}
-            type="submit"
-          >
+          <Button className={classes.button} type="submit">
             Sign Up
           </Button>
           <div className="link-container">

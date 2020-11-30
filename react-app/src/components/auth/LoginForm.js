@@ -7,8 +7,24 @@ import { loadUser } from "../../store/ducks/user";
 import { NavLink } from "react-router-dom";
 import "./AuthForm.css";
 import Button from "@material-ui/core/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHippo } from "@fortawesome/free-solid-svg-icons";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    width: "100%",
+    color: "white",
+    backgroundColor: theme.palette.primary.main,
+    "&:hover": {
+      backgroundColor: theme.palette.dark.main,
+      color: "white"
+    },
+  },
+}));
 
 const LoginForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
+  const classes = useStyles();
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,10 +54,11 @@ const LoginForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
 
   return (
     <div className="container">
+      <FontAwesomeIcon icon={faHippo} size="3x" color="#8ab" />
       <h1>Welcome to Clevernote</h1>
       <div className="form-container">
         <form onSubmit={onLogin}>
-          <div>
+          <div className="form-errors">
             {errors.map((error) => (
               <div>{error}</div>
             ))}
@@ -65,14 +82,7 @@ const LoginForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
               value={password}
               onChange={updatePassword}
             />
-            <Button
-              style={{
-                width: "100%",
-                color: "white",
-                backgroundColor: " #00a82d",
-              }}
-              type="submit"
-            >
+            <Button className={classes.button} type="submit">
               Sign in
             </Button>
           </div>
