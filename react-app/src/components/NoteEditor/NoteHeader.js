@@ -62,6 +62,10 @@ const NoteHeader = ({ id, note, edited, handleCancel, notebook, notes }) => {
         setOpen(false);
     };
 
+    if (Object.values(note).length) {
+      return null;
+    }
+
 
     return (
         <Box className={classes.headerContainer}>

@@ -72,7 +72,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const NoteFooter = ({ id }) => {
+const NoteFooter = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -80,11 +80,10 @@ const NoteFooter = ({ id }) => {
     
     const notes = useSelector(state => state.notes)
     const allTags = useSelector(state => state.tags)
-    id = useSelector(state => state.currentNote)
+    const id = useSelector(state => state.currentNote)
 
     let note = notes[id];
     let tags = note.tags
-    
     const tagsArr = tags.map(tag => {
         return allTags[tag]
     })
@@ -100,7 +99,9 @@ const NoteFooter = ({ id }) => {
     }
 
 
-
+    if (!Object.values(allTags).length) {
+        return null;
+    }
  
 
     return (
