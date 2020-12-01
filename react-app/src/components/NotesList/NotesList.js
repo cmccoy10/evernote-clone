@@ -54,7 +54,7 @@ const NotesList = () => {
   });
 
   if (currentNotebookId) {
-    const noteTags = [];
+    // const noteTags = [];
     const filteredNotes = [];
 
     notebooks[currentNotebookId].notes.map((id) => {
@@ -78,11 +78,13 @@ const NotesList = () => {
     });
 
     sortedFilteredNotes.forEach(note => {
+      let noteTags = [];
         note.tags.forEach((id) => {
             if (Object.keys(tags).includes(id.toString())) {
                 noteTags.push(tags[id]);
             }
         });
+        console.log(noteTags)
         filteredNotesDiv.push(
             <Note key={note.id} note={note} tags={noteTags} />
         );

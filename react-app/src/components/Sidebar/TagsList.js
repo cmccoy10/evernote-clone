@@ -93,9 +93,9 @@ const useStyles = makeStyles(() => ({
         zIndex: '1'
     },
     drawerPaper: {
-        width: '30%',
+        width: '26em',
         position: 'absolute',
-        left: '20%',
+        left: '17em',
         zIndex: '1'
     },
 }))
