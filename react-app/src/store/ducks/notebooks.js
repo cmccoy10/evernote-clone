@@ -77,8 +77,8 @@ export const handleDeleteNotebook = (notebookId) => async (dispatch) => {
        dispatch(deleteNotebook(notebookId));
        dispatch(getNotes())
 
-     
-     
+
+
     } else {
       throw res;
     }
@@ -161,6 +161,32 @@ export const getNotebooks = () => async (dispatch, getState) => {
   }
 };
 
+
+export const setCurrentNoteAndNotebook = (index) => async (dispatch, getState) => {
+    await dispatch(setCurrentNotebook(index));
+    const notes = getState().notes;
+    const currentNotebookId = getState().currentNotebook;
+    const notebooks = getState().notebooks;
+    const notebook = notebooks[currentNotebookId];
+
+    const nextCurrentNote = () => {
+        const initialNote = Object.values(notes)[0];
+        return Object.values(notes).reduce((max, note) => {
+            if (!max) return null;
+                const noteDate = Date.parse(note.updated_on);
+                const maxDate = Date.parse(max.updated_on);
+            if (notebook.notes.includes(note.id) && noteDate > maxDate) {
+                return max = note;
+            } else {
+                return max;
+            }
+        }, initialNote)
+      }
+
+      const nextNote = nextCurrentNote();
+      await dispatch(setCurrentNote(nextNote.id))
+};
+
 //reducer
 
 function removeItem(array, action) {
@@ -203,7 +229,7 @@ export default function reducer(state = {}, action) {
       //       delete newState.notes[key]
       //     }
 
-          
+
         // }
       // }
       return {...newState}
