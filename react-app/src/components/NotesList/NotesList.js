@@ -11,7 +11,6 @@ const NotesList = () => {
   const notebooks = useSelector((state) => state.notebooks);
   const tags = useSelector((state) => state.tags);
   const currentTag = useSelector((state) => state.currentTag);
-  // let numNotes = Object.values(notes).length;
 
 
   const allNotesListDiv = [];
@@ -28,7 +27,7 @@ const NotesList = () => {
     }
 
     let numNotes = Object.values(notes).length;
-  
+
 
   const sortedAllNotes = Object.values(notes).sort(function (a, b) {
     const aDate = Date.parse(a.updated_on);

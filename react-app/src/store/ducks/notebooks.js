@@ -71,7 +71,6 @@ export const handleDeleteNotebook = (notebookId) => async (dispatch) => {
       },
     });
     if (res.ok) {
-      // const notebook = await res.json();
       dispatch(setCurrentNotebook(null));
       dispatch(deleteNotebook(notebookId));
       dispatch(getNotes());
