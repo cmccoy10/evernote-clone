@@ -21,15 +21,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     tagButton: {
-        borderRadius: '8px',
+        borderRadius: '10px',
         minWidth: '30px',
         height: '25px',
         textTransform: 'none',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '10px 8px 10px 8px',
-        margin: '30px 5px 30px 5px'
+        padding: '12px',
+        margin: '20px 5px 20px 5px'
     },
     tagButtonLabel: {
         color: 'white'
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
         width: '15px',
         height: '15px',
         color: theme.palette.other.main,
-        margin: '2px'
+        margin: '1px'
     },
     tagDialogBox: {
         width: '450px',
@@ -157,14 +157,14 @@ const Tag = ({ tag, setOpenDrawer, openDrawer }) => {
                     { tag.name }  ({tag.notes.length})
                 </div>
                 <div className={classes.tagButtons}>
-                    <div onClick={() => handleDeleteTag(tag.id)}>
-                        <Icon className={classes.smTagButton}>
-                            <DeleteIcon className={classes.smTagButton}/>
-                        </Icon>
-                    </div>
                     <div onClick={handleOpen}>
                         <Icon className={classes.smTagButton}>
                             <EditIcon className={classes.smTagButton}/>
+                        </Icon>
+                    </div>
+                    <div onClick={() => handleDeleteTag(tag.id)}>
+                        <Icon className={classes.smTagButton}>
+                            <DeleteIcon className={classes.smTagButton}/>
                         </Icon>
                     </div>
                 </div>

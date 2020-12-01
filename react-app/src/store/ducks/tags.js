@@ -126,7 +126,6 @@ export const newTagToNote = (name, noteId) => async (dispatch, getState) => {
             dispatch(newTag(tag))
             dispatch(addTagRelation(tag.id, noteId))
         } else {
-            console.log(tag)
             const tagId = tag.tag_id
             const { tags } = getState()
             const updatedTag = tags[tagId];

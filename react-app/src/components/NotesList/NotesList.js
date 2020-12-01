@@ -20,7 +20,6 @@ const NotesList = () => {
 
   if (currentTag) {
     tag = tags[currentTag]
-    console.log(tag.notes)
     const tagNotes = {};
     tag.notes.forEach(note => {
       tagNotes[note] = notes[note]
