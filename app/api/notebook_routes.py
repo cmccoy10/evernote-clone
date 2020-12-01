@@ -45,7 +45,7 @@ def create_notebook():
 
 
 @notebook_routes.route('/<int:notebookId>', methods=['POST'])
-# @login_required
+@login_required
 def update_notebook(notebookId):
     form = NotebookForm()
     user_id = current_user.get_id()
@@ -53,7 +53,6 @@ def update_notebook(notebookId):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         try:
-        
             title = form.data['title']
             print(title, notebookId)
             notebook = Notebook.query.get(notebookId)
@@ -67,7 +66,7 @@ def update_notebook(notebookId):
 
 
 @notebook_routes.route('/<int:notebookId>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_notebook(notebookId):
     try:
         notebook = Notebook.query.get(notebookId)

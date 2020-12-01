@@ -8,12 +8,12 @@ import {
   DialogTitle,
   Input,
 } from "@material-ui/core";
-import { handleRenameNotebook } from '../../store/ducks/notebooks'
-
+import { handleRenameNotebook } from "../../store/ducks/notebooks";
 
 // import { createNotebook } from "../../store/ducks/notebooks";
 
-const HeaderModal = ({ currentNotebookId, noteTitle, open, handleClose}) => {
+const HeaderModal = ({ currentNotebookId, noteTitle, open, handleClose }) => {
+  console.log(currentNotebookId);
   const dispatch = useDispatch();
   const [title, setTitle] = useState(noteTitle);
   const [errors, setErrors] = useState([]);
@@ -21,7 +21,9 @@ const HeaderModal = ({ currentNotebookId, noteTitle, open, handleClose}) => {
     setTitle(e.target.value);
   };
   const handleSubmit = async () => {
-    const newNotebook = await dispatch(handleRenameNotebook(currentNotebookId, title));
+    const newNotebook = await dispatch(
+      handleRenameNotebook(currentNotebookId, title)
+    );
     if (newNotebook && "errors" in newNotebook) {
       setErrors(newNotebook["errors"]);
     }
@@ -38,9 +40,9 @@ const HeaderModal = ({ currentNotebookId, noteTitle, open, handleClose}) => {
   };
   return (
     <div>
-        <Dialog
-              fullWidth={true}
-              open={open}
+      <Dialog
+        fullWidth={true}
+        open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
