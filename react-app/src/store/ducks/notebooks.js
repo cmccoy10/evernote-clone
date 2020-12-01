@@ -136,7 +136,24 @@ export const getNotebooks = () => async (dispatch, getState) => {
     });
     if (response.ok) {
       const list = await response.json();
+      const notes = getState().notes;
+
+      const nextCurrentNote = () => {
+        const initialNote = Object.values(notes)[0];
+        return Object.values(notes).reduce((max, note) => {
+            if (!max) return null;
+                const noteDate = Date.parse(note.updated_on);
+                const maxDate = Date.parse(max.updated_on);
+            if (noteDate > maxDate) {
+                return max = note;
+            } else {
+                return max;
+            }
+        }, initialNote)
+      }
+      const nextNote = nextCurrentNote();
       dispatch(load_notebooks(list.notebooks));
+      dispatch(setCurrentNote(nextNote.id))
     }
   } catch (e) {
     console.log(e);

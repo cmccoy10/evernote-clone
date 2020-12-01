@@ -32,6 +32,8 @@ const Notebooks = () => {
   const notebooks = useSelector((state) => state.notebooks);
   const [open, setOpen] = React.useState(false);
 
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -42,6 +44,7 @@ const Notebooks = () => {
 
   const setCurrent = async (index) => {
     await dispatch(setCurrentNotebook(index));
+    // await dispatch(setCurrentNote())
   };
 
   const [collapseList, setCollapseList] = useState(false);
