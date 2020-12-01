@@ -6,6 +6,7 @@ import { deleteNote, editNote } from '../../store/ducks/notes';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import NoteDeleteModal from './NoteDeleteModal';
+import { setCurrentNoteAndNotebook } from '../../store/ducks/notebooks';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,11 +63,15 @@ const NoteHeader = ({ id, note, edited, handleCancel, notebook, notes }) => {
         setOpen(false);
     };
 
+    const redirectNotebook = async (id) => {
+        await dispatch(setCurrentNoteAndNotebook(id))
+    }
+
 
     return (
         <Box className={classes.headerContainer}>
             <Box>
-                <Button className={classes.notebookButton}>
+                <Button className={classes.notebookButton} onClick={() => redirectNotebook(notebook.id)}>
                     <LibraryBooks />
                     <Box className={classes.notebookText}>
                         {notebook.title}
