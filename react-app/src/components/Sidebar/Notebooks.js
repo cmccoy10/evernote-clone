@@ -7,8 +7,11 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import ArrowRight from "@material-ui/icons/ArrowRight";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import NewNotebookForm from "./NewNotebookForm";
+
 import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
 import { setCurrentTag } from '../../store/ducks/currentTag'
+
+import { setCurrentNoteAndNotebook } from "../../store/ducks/notebooks";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -31,6 +34,8 @@ const Notebooks = () => {
   const dispatch = useDispatch();
   const currentNotebook = useSelector((state) => state.currentNotebook);
   const notebooks = useSelector((state) => state.notebooks);
+  const notes = useSelector((state) => state.notes);
+  const notebook = notebooks[currentNotebook];
   const [open, setOpen] = React.useState(false);
 
 
@@ -43,12 +48,14 @@ const Notebooks = () => {
     setOpen(false);
   };
 
+
   const setCurrent = async (index) => {
+
     await dispatch(setCurrentNotebook(index));
 
     await dispatch(setCurrentTag(null));
 
-    // await dispatch(setCurrentNote())
+    await dispatch(setCurrentNoteAndNotebook(index));
 
   };
 
