@@ -95,6 +95,8 @@ export const createNote = (notebook_id) => async (dispatch, getState) => {
   }
 };
 
+
+
 // Reducer
 export default function reducer(state = {}, action) {
   switch (action.type) {

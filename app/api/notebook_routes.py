@@ -73,7 +73,7 @@ def delete_notebook(notebookId):
         notebook = Notebook.query.get(notebookId)
         db.session.delete(notebook)
         db.session.commit()
-        return jsonify(status='ok')
+        return {'msg': 'success'}, 200
     except SQLAlchemyError as e:
         db.session.rollback()
-        return jsonify(error={'msg': e._message()})
+        return {'msg': e._message()}, 400

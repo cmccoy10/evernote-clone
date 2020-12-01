@@ -1,5 +1,6 @@
 import merge from "lodash/merge";
 import {setCurrentNotebook} from './currentNotebook'
+import { getNotes } from "./notes";
 const LOAD_NOTEBOOKS = "clevernote/notebooks/load";
 const NEW_NOTEBOOK = "clevernote/notebooks/new";
 const DELETE_NOTEBOOK = "clevernote/notebooks/delete";
@@ -7,6 +8,8 @@ const RENAME_NOTEBOOK = "clevernote/notebooks/rename";
 
 const REMOVE_NOTE = "clevernote/notebooks/remove_note"
 const ADD_NOTE = "clevernote/notebooks/add_note"
+
+
 
 export const load_notebooks = (list) => {
   return {
@@ -69,8 +72,12 @@ export const handleDeleteNotebook = (notebookId) => async (dispatch) => {
     });
     if (res.ok) {
       // const notebook = await res.json();
-      dispatch(setCurrentNotebook(null))
-      dispatch(deleteNotebook(notebookId));
+       dispatch(setCurrentNotebook(null));
+       dispatch(deleteNotebook(notebookId));
+       dispatch(getNotes())
+
+     
+     
     } else {
       throw res;
     }
@@ -166,6 +173,7 @@ export default function reducer(state = {}, action) {
     }
     case DELETE_NOTEBOOK: {
       const newState = {...state}
+      console.log("newState", newState);
       delete newState[action.notebookId]
       return {...newState}
     }
