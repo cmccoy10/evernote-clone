@@ -17,7 +17,9 @@ const useStyles = makeStyles(() => ({
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        overflow: 'none'
+        overflow: 'none',
+        padding: '5px 0px 0px 0px',
+        marginBottom: '10px'
     },
     notefooter__tags: {
         maxWidth: '80%',
@@ -25,32 +27,22 @@ const useStyles = makeStyles(() => ({
         overflow: 'none',
         display: 'flex',
         alignItems: 'center',
-        margin: '0px 5px 0px 5px',
-        padding: '3px'
+        paddingLeft: '10px'
+        // margin: '0px 5px 0px 5px',
+        // paddingTop: '3px',
     },
     notefooter__tag: {
-        padding: '15px 15px',
+        // padding: '15px 15px',
         backgroundColor: '#e0e0e0',
         borderRadius: '12px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         fontSize: '14px',
-        height: '20px',
-        margin: '2px 4px 2px 4px'
+        height: '30px',
+        padding: '6px 8px 6px 8px',
+        margin: '0px 4px 0px 4px'
 
-    },
-    noteFooter__newTagInput: {
-        outline: 'none',
-        border: 'none',
-        textDecoration: 'none',
-        width: '100%',
-        padding: '15px 15px',
-        borderRadius: '12px',
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '14px',
-        height: '20px',
     },
     notefooter__deleteicon: {
         width: '15px',
@@ -62,12 +54,26 @@ const useStyles = makeStyles(() => ({
         height: '15px',
     },
     noteFooter__newTagForm: {
-        maxWidth: '15%',
+        maxWidth: '20%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         height: '20px',
-        margin: '2px 4px 2px 4px',
+        margin: '2px 4px 0px 4px',
+    },
+    noteFooter__newTagInput: {
+        outline: 'none',
+        border: 'none',
+        textDecoration: 'none',
+        width: '100%',
+        padding: '15px 15px',
+        borderRadius: '12px',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '14px',
+        height: '100%',
+        marginTop: '2px',
+        marginBottom: '0px !important'
     }
 }));
 
@@ -90,7 +96,10 @@ const NoteFooter = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await dispatch(newTagToNote(name, note.id))
+        const tagNames = tagsArr.map(tag => tag.name)
+        if (!tagNames.includes(name)) {
+            await dispatch(newTagToNote(name, note.id))
+        }
         setName('')
     }
 
@@ -98,9 +107,18 @@ const NoteFooter = () => {
         dispatch(removeTagNoteRelation(tagId, note.id))
     }
 
+    const newTagForm = () => (
+        <form onSubmit={handleSubmit} className={classes.noteFooter__newTagForm}>
+            <input className={classes.noteFooter__newTagInput} value={name} onChange={(e) => setName(e.target.value)} placeholder='Add tag' />
+        </form>
+    )
 
     if (!Object.values(allTags).length) {
-        return null;
+        return (
+            <div className={classes.noteFooter}>
+                {newTagForm()}
+            </div>
+        )
     }
  
 
@@ -109,7 +127,7 @@ const NoteFooter = () => {
             <div className={classes.notefooter__tags}>
                 {tagsArr.length < 0 ? null : tagsArr.map(tag => {
                     return (
-                        <div className={classes.notefooter__tag}>
+                        <div className={classes.notefooter__tag} key={tag.id}>
                             <div className={classes.notefooter__tagname}>{tag['name']}</div>
                             <IconButton size="small" onClick={() => handleDelete(tag['id'])} className={classes.notefooter__deleteiconButton}>
                                 <CloseIcon className={classes.notefooter__deleteicon}/>
@@ -118,10 +136,7 @@ const NoteFooter = () => {
                     )
                 })}
             </div>
-            <form onSubmit={handleSubmit} className={classes.noteFooter__newTagForm}>
-                {/* <TextField /> */}
-                <input className={classes.noteFooter__newTagInput} value={name} onChange={(e) => setName(e.target.value)} placeholder='Add tag' />
-            </form>
+            {newTagForm()}
         </div>
     );
 }

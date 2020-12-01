@@ -56,8 +56,10 @@ export const createTag = (name) => async (dispatch) => {
         body: JSON.stringify({ name })
     })
     if (res.ok) {
-        const { tag } = await res.json()
-        dispatch(newTag(tag))
+        const tag = await res.json()
+        if (tag.name) {
+            dispatch(newTag(tag))
+        }
     }
 }
 
@@ -69,6 +71,12 @@ export const deleteTag = (tagId) => async (dispatch) => {
         }
     })
     if (res.ok) {
+        const tag = await res.json();
+        if (tag.notes.length) {
+            tag.notes.forEach(note => {
+                dispatch(removeTagRelation(tag.id, note))
+            })
+        }
         dispatch(removeTag(tagId))
     }
 }

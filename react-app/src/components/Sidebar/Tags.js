@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { ListItem, ListItemIcon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import ArrowRight from "@material-ui/icons/ArrowRight";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import { setCurrentTag } from '../../store/ducks/currentTag';
+import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -21,18 +23,26 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 0,
     paddingRight: 0,
   },
-  openDrawer: {
+  tagClick: {
     cursor: 'pointer'
-  }
+  },
 }));
 
 const Tags = ({ openDrawer, setOpenDrawer }) => {
   // const [openDrawer, setOpenDrawer] = useState(false);
+  const dispatch = useDispatch();
   const [collapseList, setCollapseList] = useState(false);
   const classes = useStyles();
   const tags = useSelector((state) => state.tags);
+
+  const handleClick = async (tagId) => {
+    setOpenDrawer(false)
+    await dispatch(setCurrentTag(tagId))
+    await dispatch(setCurrentNotebook(null));
+  }
+
   const tagTitles = Object.values(tags).map((tag) => (
-    <li style={{ marginLeft: "45px" }} key={tag.name}>
+    <li className={classes.tagClick} style={{ marginLeft: "45px" }} key={tag.name} onClick={() => handleClick(tag.id)}>
       <FontAwesomeIcon
         icon={faTag}
         className={`${classes.icon} ${classes.coloredIcon}`}
@@ -62,7 +72,7 @@ const Tags = ({ openDrawer, setOpenDrawer }) => {
             />
           )}
         </ListItemIcon>
-        <div onClick={handleDrawerOpen} className={classes.openDrawer}>
+        <div onClick={handleDrawerOpen} className={classes.tagClick}>
         <FontAwesomeIcon icon={faTag} className={classes.icon} />
         Tags
         </div>

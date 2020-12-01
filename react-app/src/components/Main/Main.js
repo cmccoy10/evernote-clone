@@ -57,6 +57,7 @@ const Main = () => {
     sidebarContainer: {
       height: "100vh",
       width: "20%",
+      zIndex: '5',
     },
     notesListContainer: {
       height: "100vh",

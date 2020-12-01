@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -19,17 +19,17 @@ import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     tagButton: {
         borderRadius: '8px',
         minWidth: '30px',
-        height: '20px',
+        height: '25px',
         textTransform: 'none',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '10px 8px 10px 8px',
-        margin: '20px 5px 20px 5px'
+        margin: '30px 5px 30px 5px'
     },
     tagButtonLabel: {
         color: 'white'
@@ -43,19 +43,11 @@ const useStyles = makeStyles(() => ({
     tagMenuItem: {
         margin: '5px'
     },
-    tagDeleteButton: {
-        width: '15px'
-    },
-    tagEditButton: {
-        width: '15px'
-    },
-    tagDelete: {
+    smTagButton: {
         width: '15px',
         height: '15px',
-    },
-    tagEdit: {
-        width: '15px',
-        height: '15px',
+        color: theme.palette.other.main,
+        margin: '2px'
     },
     tagDialogBox: {
         width: '450px',
@@ -119,6 +111,8 @@ const Tag = ({ tag, setOpenDrawer, openDrawer }) => {
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
+    const currentTag = useSelector(state => state.currentTag)
+
     const handleOpen = (e) => {
         setOpen(true);
     }
@@ -144,6 +138,9 @@ const Tag = ({ tag, setOpenDrawer, openDrawer }) => {
     );
 
     const handleDeleteTag = (id) => {
+        if (id === currentTag) {
+            dispatch(setCurrentTag(null))
+        }
         dispatch(deleteTag(id))
     }
 
@@ -161,14 +158,14 @@ const Tag = ({ tag, setOpenDrawer, openDrawer }) => {
                 </div>
                 <div className={classes.tagButtons}>
                     <div onClick={() => handleDeleteTag(tag.id)}>
-                        <IconButton className={classes.tagDeleteButton}>
-                            <DeleteIcon className={classes.tagDelete}/>
-                        </IconButton>
+                        <Icon className={classes.smTagButton}>
+                            <DeleteIcon className={classes.smTagButton}/>
+                        </Icon>
                     </div>
                     <div onClick={handleOpen}>
-                        <IconButton className={classes.tagEditButton}>
-                            <EditIcon className={classes.tagEdit}/>
-                        </IconButton>
+                        <Icon className={classes.smTagButton}>
+                            <EditIcon className={classes.smTagButton}/>
+                        </Icon>
                     </div>
                 </div>
             </Button>

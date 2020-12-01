@@ -90,11 +90,13 @@ const useStyles = makeStyles(() => ({
     tagsdrawer: {
         width: '100%',
         flexShrink: 0,
+        zIndex: '1'
     },
     drawerPaper: {
         width: '30%',
         position: 'absolute',
-        left: '20%'
+        left: '20%',
+        zIndex: '1'
     },
 }))
 
@@ -120,6 +122,7 @@ const TagsList = ({ openDrawer, setOpenDrawer }) => {
         e.preventDefault();
         dispatch(createTag(name))
         setOpen(false);
+        setName('');
     }
     
     
@@ -133,8 +136,19 @@ const TagsList = ({ openDrawer, setOpenDrawer }) => {
         </div>
     );
 
-    let tags = useSelector((state) => Object.values(state.tags))
+    let allTags = useSelector((state) => Object.values(state.tags))
     
+    const sortTags = (obj1, obj2) => {
+        if (obj1.name < obj2.name) {
+            return -1
+        }
+        if (obj1.name > obj2.name) {
+            return 1
+        }
+        return 0
+    }
+    const tags = allTags.sort(sortTags)
+
 
     return (
         <div>
@@ -156,7 +170,7 @@ const TagsList = ({ openDrawer, setOpenDrawer }) => {
                 </IconButton>
             </div>
             <div className={classes.tagslist__list}>
-                {tags.map(tag => {
+                {!tags.length ? null : tags.map(tag => {
                     return (
                         // <div key={tag.id}>
                         //     {(tag.name[0].toLowerCase() === tagTitle) ? null : <div className={classes.tagslist__tagtitle}>{tag.name[0].toUpperCase()}</div>}

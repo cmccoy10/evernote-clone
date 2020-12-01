@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Typography, IconButton } from '@material-ui/core';
 import { LibraryBooks, Delete } from "@material-ui/icons"
 import { deleteNote, editNote } from '../../store/ducks/notes';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import NoteDeleteModal from './NoteDeleteModal';
 
@@ -43,9 +43,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 const NoteHeader = ({ id, note, edited, handleCancel, notebook, notes }) => {
+    // const noteId = useSelector(state => state.currentNote)
+    // const noteTitle = useSelector(state => state.notes[noteId].notebook_id)
+    // const notebookTitle = useSelector(state => state.notebooks[noteTitle].title)
     const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
+    
 
     const handleSave = () => {
         dispatch(editNote({
@@ -62,9 +66,9 @@ const NoteHeader = ({ id, note, edited, handleCancel, notebook, notes }) => {
         setOpen(false);
     };
 
-    if (Object.values(note).length) {
-      return null;
-    }
+    // if (Object.values(note).length) {
+    //   return null;
+    // }
 
 
     return (
