@@ -1,16 +1,14 @@
 import merge from "lodash/merge";
 import { setCurrentNote } from "./currentNote";
-import {setCurrentNotebook} from './currentNotebook'
+import { setCurrentNotebook } from "./currentNotebook";
 import { getNotes } from "./notes";
 const LOAD_NOTEBOOKS = "clevernote/notebooks/load";
 const NEW_NOTEBOOK = "clevernote/notebooks/new";
 const DELETE_NOTEBOOK = "clevernote/notebooks/delete";
 const RENAME_NOTEBOOK = "clevernote/notebooks/rename";
 
-const REMOVE_NOTE = "clevernote/notebooks/remove_note"
-const ADD_NOTE = "clevernote/notebooks/add_note"
-
-
+const REMOVE_NOTE = "clevernote/notebooks/remove_note";
+const ADD_NOTE = "clevernote/notebooks/add_note";
 
 export const load_notebooks = (list) => {
   return {
@@ -26,18 +24,19 @@ export const newNotebook = (notebook) => ({
 
 export const deleteNotebook = (notebookId) => ({
   type: DELETE_NOTEBOOK,
-  notebookId
-})
+  notebookId,
+});
 
-export const renameNotebook = ( notebook ) => ({
+export const renameNotebook = (notebook) => ({
   type: RENAME_NOTEBOOK,
   notebook,
-})
-
+});
 
 //thunks
-export const handleRenameNotebook = (notebookId, newTitle) => async (dispatch) => {
-  console.log('inside think')
+export const handleRenameNotebook = (notebookId, newTitle) => async (
+  dispatch
+) => {
+  console.log("inside think");
   try {
     const res = await fetch(`/api/notebooks/${notebookId}`, {
       method: "POST",
@@ -48,13 +47,13 @@ export const handleRenameNotebook = (notebookId, newTitle) => async (dispatch) =
     });
     if (res.ok) {
       const notebook = await res.json();
-      console.log('notebook', notebook)
+      console.log("notebook", notebook);
       dispatch(renameNotebook(notebook));
     } else {
       throw res;
     }
   } catch (err) {
-    console.log("ERROR", err)
+    console.log("ERROR", err);
     const badRequest = await err.json();
     const errors = badRequest.errors;
     return {
@@ -73,17 +72,14 @@ export const handleDeleteNotebook = (notebookId) => async (dispatch) => {
     });
     if (res.ok) {
       // const notebook = await res.json();
-       dispatch(setCurrentNotebook(null));
-       dispatch(deleteNotebook(notebookId));
-       dispatch(getNotes())
-
-
-
+      dispatch(setCurrentNotebook(null));
+      dispatch(deleteNotebook(notebookId));
+      dispatch(getNotes());
     } else {
       throw res;
     }
   } catch (err) {
-    console.log(err, 'err delete')
+    console.log(err, "err delete");
     const badRequest = await err.json();
     const errors = badRequest.errors;
     return {
@@ -142,57 +138,60 @@ export const getNotebooks = () => async (dispatch, getState) => {
       const nextCurrentNote = () => {
         const initialNote = Object.values(notes)[0];
         return Object.values(notes).reduce((max, note) => {
-            if (!max) return null;
-                const noteDate = Date.parse(note.updated_on);
-                const maxDate = Date.parse(max.updated_on);
-            if (noteDate > maxDate) {
-                return max = note;
-            } else {
-                return max;
-            }
-        }, initialNote)
-      }
+          if (!max) return null;
+          const noteDate = Date.parse(note.updated_on);
+          const maxDate = Date.parse(max.updated_on);
+          if (noteDate > maxDate) {
+            return (max = note);
+          } else {
+            return max;
+          }
+        }, initialNote);
+      };
       const nextNote = nextCurrentNote();
       dispatch(load_notebooks(list.notebooks));
-      dispatch(setCurrentNote(nextNote.id))
+      dispatch(setCurrentNote(nextNote.id));
     }
   } catch (e) {
     console.log(e);
   }
 };
 
+export const setCurrentNoteAndNotebook = (index) => async (
+  dispatch,
+  getState
+) => {
+  await dispatch(setCurrentNotebook(index));
+  const notes = getState().notes;
+  const currentNotebookId = getState().currentNotebook;
+  const notebooks = getState().notebooks;
+  const notebook = notebooks[currentNotebookId];
 
-export const setCurrentNoteAndNotebook = (index) => async (dispatch, getState) => {
-    await dispatch(setCurrentNotebook(index));
-    const notes = getState().notes;
-    const currentNotebookId = getState().currentNotebook;
-    const notebooks = getState().notebooks;
-    const notebook = notebooks[currentNotebookId];
-
-    const nextCurrentNote = () => {
-        const initialNote = Object.values(notes)[0];
-        return Object.values(notes).reduce((max, note) => {
-            if (!max) return null;
-                const noteDate = Date.parse(note.updated_on);
-                const maxDate = Date.parse(max.updated_on);
-            if (notebook.notes.includes(note.id) && noteDate > maxDate) {
-                return max = note;
-            } else {
-                return max;
-            }
-        }, initialNote)
+  const nextCurrentNote = () => {
+    const initialNote = Object.values(notes)[0];
+    if (Object.values(notes).length === 0) return null;
+    return Object.values(notes).reduce((max, note) => {
+      if (!max) return null;
+      const noteDate = Date.parse(note.updated_on);
+      const maxDate = Date.parse(max.updated_on);
+      if (notebook.notes.includes(note.id) && noteDate > maxDate) {
+        return (max = note);
+      } else {
+        return max;
       }
+    }, initialNote);
+  };
 
-      const nextNote = nextCurrentNote();
-      await dispatch(setCurrentNote(nextNote.id))
+  const nextNote = nextCurrentNote();
+  const id = nextNote ? nextNote.id : null;
+  await dispatch(setCurrentNote(id));
 };
 
 //reducer
 
 function removeItem(array, action) {
-    return array.filter((note) => note !== action.noteId)
+  return array.filter((note) => note !== action.noteId);
 }
-
 
 export default function reducer(state = {}, action) {
   Object.freeze(state);
@@ -212,13 +211,13 @@ export default function reducer(state = {}, action) {
     case RENAME_NOTEBOOK: {
       // console.log(action.notebook[0], 'notebook')
       const newState = { ...state };
-      newState[action.notebook.id] = action.notebook
-      return {...newState }
+      newState[action.notebook.id] = action.notebook;
+      return { ...newState };
     }
     case DELETE_NOTEBOOK: {
-      const newState = {...state}
+      const newState = { ...state };
       console.log("newState", newState);
-      delete newState[action.notebookId]
+      delete newState[action.notebookId];
       // const notes = Object.values(newState.notes)
       // const filteredNotes = notes.filter
       // for (const key in newState.notes) {
@@ -229,23 +228,22 @@ export default function reducer(state = {}, action) {
       //       delete newState.notes[key]
       //     }
 
-
-        // }
       // }
-      return {...newState}
+      // }
+      return { ...newState };
     }
 
     case ADD_NOTE: {
-        let newState = { ...state };
-        newState[action.notebookId].notes.push(action.noteId);
-        return { ...newState }
+      let newState = { ...state };
+      newState[action.notebookId].notes.push(action.noteId);
+      return { ...newState };
     }
 
     case REMOVE_NOTE: {
-        let newState = { ...state };
-        const notes = removeItem(newState[action.notebookId].notes, action);
-        newState[action.notebookId].notes = notes;
-        return { ...newState }
+      let newState = { ...state };
+      const notes = removeItem(newState[action.notebookId].notes, action);
+      newState[action.notebookId].notes = notes;
+      return { ...newState };
     }
 
     default:
