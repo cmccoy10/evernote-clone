@@ -3,7 +3,7 @@ import "../Main/Main.css";
 import { useSelector, useDispatch } from "react-redux";
 import { handleDeleteNotebook} from '../../store/ducks/notebooks';
 import HeaderModal from './HeaderModal';
-import { createNote } from "../../store/ducks/notes";
+import { createNote, deleteNote } from "../../store/ducks/notes";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
@@ -16,7 +16,8 @@ const Header = (props) => {
     setOpen(false);
   };
 
-    const notebooks = useSelector((state) => state.notebooks);
+  const notebooks = useSelector((state) => state.notebooks);
+  const notes = useSelector((state) => state.notes)
     const currentNotebookId = useSelector((state) => state.currentNotebook);
     const currentNotebook = notebooks[currentNotebookId];
 
@@ -51,7 +52,16 @@ const Header = (props) => {
         // dispatch(handleRenameNotebook(currentNotebookId, 'newtitle'))
         break;
       case 'delete':
+        for (const key in notes) {
+          if (notes.hasOwnProperty(key)) {
+            const note = notes[key];
+            if (note.notebook_id === currentNotebookId) {
+              dispatch(deleteNote({id: key, notebook: currentNotebook}))
+            }
+          }
+        }
         dispatch(handleDeleteNotebook(currentNotebookId))
+        
         break;
       default:
         break;

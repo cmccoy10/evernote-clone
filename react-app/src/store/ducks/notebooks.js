@@ -193,6 +193,19 @@ export default function reducer(state = {}, action) {
       const newState = {...state}
       console.log("newState", newState);
       delete newState[action.notebookId]
+      // const notes = Object.values(newState.notes)
+      // const filteredNotes = notes.filter
+      // for (const key in newState.notes) {
+      //   if (newState.notes.hasOwnProperty(key)) {
+      //     const note = newState.notes[key];
+      //     console.log(note, 'note')
+      //     if (note.id === action.notebookId) {
+      //       delete newState.notes[key]
+      //     }
+
+          
+        // }
+      // }
       return {...newState}
     }
 
