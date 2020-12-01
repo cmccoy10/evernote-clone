@@ -1,8 +1,8 @@
-"""update notee model
+"""empty message
 
-Revision ID: ae3714c78095
+Revision ID: b7665ab29216
 Revises: 
-Create Date: 2020-11-28 16:03:30.344972
+Create Date: 2020-11-30 11:29:16.694644
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ae3714c78095'
+revision = 'b7665ab29216'
 down_revision = None
 branch_labels = None
 depends_on = None

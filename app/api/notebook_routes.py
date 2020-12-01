@@ -48,17 +48,22 @@ def create_notebook():
 # @login_required
 def update_notebook(notebookId):
     form = NotebookForm()
+    user_id = current_user.get_id()
+    form['owner_id'].data = user_id
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        title = request.form['title']
         try:
+        
+            title = form.data['title']
+            print(title, notebookId)
             notebook = Notebook.query.get(notebookId)
             notebook.title = title
-            db.session.commit(notebook)
-            return jsonify(notebook=[notebook.to_dict()])
+            db.session.commit()
+            # return jsonify(notebook=[notebook.to_dict()])
+            return notebook.to_dict()
         except SQLAlchemyError as e:
-            db.session.rollback()
             return jsonify(error={'msg': e._message()})
-    return jsonify(error=[{'msg': 'please fill in all required fields'}])
+    return {'errors': 'Please provide a name for your notebook.'}, 400
 
 
 @notebook_routes.route('/<int:notebookId>', methods=['DELETE'])
@@ -68,7 +73,7 @@ def delete_notebook(notebookId):
         notebook = Notebook.query.get(notebookId)
         db.session.delete(notebook)
         db.session.commit()
-        return jsonify(status='ok')
+        return {'msg': 'success'}, 200
     except SQLAlchemyError as e:
         db.session.rollback()
-        return jsonify(error={'msg': e._message()})
+        return {'msg': e._message()}, 400
