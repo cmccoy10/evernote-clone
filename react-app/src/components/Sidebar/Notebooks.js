@@ -7,8 +7,12 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import ArrowRight from "@material-ui/icons/ArrowRight";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import NewNotebookForm from "./NewNotebookForm";
-// import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
+
+import { setCurrentNotebook } from "../../store/ducks/currentNotebook";
+import { setCurrentTag } from '../../store/ducks/currentTag'
+
 import { setCurrentNoteAndNotebook } from "../../store/ducks/notebooks";
+
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +50,13 @@ const Notebooks = () => {
 
 
   const setCurrent = async (index) => {
-      await dispatch(setCurrentNoteAndNotebook(index));
+
+    await dispatch(setCurrentNotebook(index));
+
+    await dispatch(setCurrentTag(null));
+
+    await dispatch(setCurrentNoteAndNotebook(index));
+
   };
 
   const [collapseList, setCollapseList] = useState(false);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import UserInfo from "./UserInfo";
 import { Drawer, CssBaseline, Divider, List, Button } from "@material-ui/core";
@@ -9,6 +9,8 @@ import Notebooks from "./Notebooks";
 import Tags from "./Tags";
 import { createNote } from "../../store/ducks/notes";
 import { useDispatch, useSelector } from "react-redux";
+import TagsList from './TagsList'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +57,8 @@ const Sidebar = ({ setAuthenticated }) => {
     })
     .map((notebook) => notebook.id)[0];
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   const handleCreateNote = () => {
     if (!currentNotebook) {
       dispatch(createNote(defaultNotebookId));
@@ -88,10 +92,11 @@ const Sidebar = ({ setAuthenticated }) => {
         <List>
           <AllNotes />
           <Notebooks />
-          <Tags />
+          <Tags openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         </List>
         <Divider />
       </Drawer>
+      <TagsList openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
     </div>
   );
 };

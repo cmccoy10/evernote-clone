@@ -62,6 +62,6 @@ def delete_tag(tag_id):
         #     db.session.delete(note_tag)
         db.session.delete(tag)
         db.session.commit()
-        return {'message': 'Tag successfully deleted.'}
+        return tag.to_dict()
     except:
         return {'error': 'Tag not found.'}

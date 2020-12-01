@@ -80,7 +80,7 @@ def create_note_tag(id):
         note = Note.query.get(id)
         tag.notes.append(note)
         db.session.commit()
-        return {"note_id": note.id}
+        return {"note_id": note.id, "tag_id": tag.id}
     else:
         if form.validate_on_submit():
             new_tag = Tag(
@@ -101,4 +101,5 @@ def delete_note_tag(note_id, tag_id):
     tag = Tag.query.get(tag_id)
     tag.notes.remove(note)
     db.session.commit()
-    return {"message": "Successful"}
+    return tag.to_dict()
+    # return {"message": "Successful"}
