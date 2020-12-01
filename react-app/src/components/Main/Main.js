@@ -39,7 +39,6 @@ const Main = () => {
     sidebarContainer: {
       height: "100vh",
       width: "20%",
-      zIndex: '5',
     },
     notesListContainer: {
       height: "100vh",
@@ -59,15 +58,15 @@ const Main = () => {
   const notebookId = note ? note.notebook_id : null;
 
   return (
-    <Box display="flex" direction="row" className={classes.main}>
-      <Box className={classes.sidebarContainer}>
+    <Box className="main-grid-container">
+      <Box>
         <Sidebar />
       </Box>
-      <Box className={classes.notesListContainer}>
+      <Box>
         <NotesList />
       </Box>
       {note ? (
-        <Box className={classes.noteEditorContainer}>
+        <Box>
           <NoteEditorContainer message={message} notebookId={notebookId} />
         </Box>
       ) : null}

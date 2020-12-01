@@ -6,6 +6,14 @@
   height: 100vh;
 }
 
+.main-grid-container {
+    display: grid;
+    grid-template-columns: 17em 26em 1fr;
+    grid-template-rows: auto;
+    height: 100%;
+    width: 100%;
+}
+
 .sidebar {
   background-color: black;
   color: white;
