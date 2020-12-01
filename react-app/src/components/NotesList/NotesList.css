@@ -1,17 +1,19 @@
 /* .note-container, */
 .notes-header {
   padding: 5px 10px;
-  border-top: 1px solid #e6e6e6;
   height: 120px;
   overflow: hidden;
 }
 
-.note-container {
+.note-container, .notes-header {
   padding: 5px 10px;
+  border-top: 1px solid #e6e6e6;
 }
+
 .notes-list-container {
   overflow: auto;
   height: 100vh;
+  background-color: #f3f3f3;
 }
 
 .tagContainer {
@@ -45,4 +47,14 @@
   max-height: 32px;     
   -webkit-line-clamp: 2; 
   -webkit-box-orient: vertical;
+}
+
+.notes-menu-container {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.hidden {
+  display: none;
 }
