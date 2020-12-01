@@ -162,7 +162,7 @@ def seed_note_tags():
 			<li>Milk</li>
 			<li>Eggs</li>
 			<li>Chicken</li>
-			<li>Potatos</li>
+			<li>Potatoes</li>
 			<li>Shampoo</li>
 			<li>Conditioner</li>
 			<li>Lettuce</li>
