@@ -1,4 +1,5 @@
 import merge from "lodash/merge";
+import { setCurrentNote } from "./currentNote";
 import {setCurrentNotebook} from './currentNotebook'
 import { getNotes } from "./notes";
 const LOAD_NOTEBOOKS = "clevernote/notebooks/load";
