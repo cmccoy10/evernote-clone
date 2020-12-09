@@ -1,6 +1,6 @@
 # Clevernote
 
-Clevernote is a note taking app that enables you to stay organized in the best way. Notes are kept in seperate notebooks for quick access. Users have the ability to tag notes with unique keywords for added easy of usability.
+Clevernote is a note taking app that enables you to stay organized in the best way. Notes are kept in separate notebooks for quick access. Users have the ability to tag notes with unique keywords for added easy of usability.
 
 Check out the app: [Live Demo](https://clevernote-app.herokuapp.com/)
 
