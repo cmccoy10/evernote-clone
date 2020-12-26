@@ -36,7 +36,6 @@ export const renameNotebook = (notebook) => ({
 export const handleRenameNotebook = (notebookId, newTitle) => async (
   dispatch
 ) => {
-  console.log("inside think");
   try {
     const res = await fetch(`/api/notebooks/${notebookId}`, {
       method: "POST",
@@ -47,13 +46,11 @@ export const handleRenameNotebook = (notebookId, newTitle) => async (
     });
     if (res.ok) {
       const notebook = await res.json();
-      console.log("notebook", notebook);
       dispatch(renameNotebook(notebook));
     } else {
       throw res;
     }
   } catch (err) {
-    console.log("ERROR", err);
     const badRequest = await err.json();
     const errors = badRequest.errors;
     return {
@@ -78,7 +75,6 @@ export const handleDeleteNotebook = (notebookId) => async (dispatch) => {
       throw res;
     }
   } catch (err) {
-    console.log(err, "err delete");
     const badRequest = await err.json();
     const errors = badRequest.errors;
     return {
@@ -208,27 +204,13 @@ export default function reducer(state = {}, action) {
       return { ...newState };
     }
     case RENAME_NOTEBOOK: {
-      // console.log(action.notebook[0], 'notebook')
       const newState = { ...state };
       newState[action.notebook.id] = action.notebook;
       return { ...newState };
     }
     case DELETE_NOTEBOOK: {
       const newState = { ...state };
-      console.log("newState", newState);
       delete newState[action.notebookId];
-      // const notes = Object.values(newState.notes)
-      // const filteredNotes = notes.filter
-      // for (const key in newState.notes) {
-      //   if (newState.notes.hasOwnProperty(key)) {
-      //     const note = newState.notes[key];
-      //     console.log(note, 'note')
-      //     if (note.id === action.notebookId) {
-      //       delete newState.notes[key]
-      //     }
-
-      // }
-      // }
       return { ...newState };
     }
 

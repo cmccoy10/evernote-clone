@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   icon: {
-    backgroundColor: theme.palette.primary.main,
+    background: theme.palette.primary.main,
     "&:hover": {
-      backgroundColor: theme.palette.dark.main,
+      background: theme.palette.dark.main,
       color: "white",
     },
   },
@@ -50,7 +50,7 @@ const NoteHeader = ({ id, note, edited, handleCancel, notebook, notes }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
-    
+
 
     const handleSave = () => {
         dispatch(editNote({
@@ -88,7 +88,7 @@ const NoteHeader = ({ id, note, edited, handleCancel, notebook, notes }) => {
                 {edited ?
                 <Box className={classes.buttonsContainer}>
                     <Box>
-                        <Button className={classes.margin} size="small" color="other" variant="contained" disableElevation onClick={handleCancel}>Cancel</Button>
+                        <Button className={classes.margin} size="small" variant="contained" disableElevation onClick={handleCancel}>Cancel</Button>
                     </Box>
                     <Box>
                         <Button className={`${classes.margin} ${classes.icon}`} size="small"  variant="contained" disableElevation onClick={handleSave}>Save</Button>

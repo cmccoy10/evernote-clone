@@ -65,7 +65,7 @@ const NoteDeleteModal = (props) => {
                     <Typography>Are you sure you want to delete this note?</Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button color="other" variant="contained" disableElevation onClick={props.onClose}>Cancel</Button>
+                    <Button variant="contained" disableElevation onClick={props.onClose}>Cancel</Button>
                     <Button className={classes.deleteButton} variant="contained" disableElevation onClick={handleDelete}>Delete</Button>
                 </DialogActions>
             </Dialog>

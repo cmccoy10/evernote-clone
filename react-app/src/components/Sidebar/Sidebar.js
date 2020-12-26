@@ -62,8 +62,9 @@ const Sidebar = ({ setAuthenticated }) => {
   const handleCreateNote = () => {
     if (!currentNotebook) {
       dispatch(createNote(defaultNotebookId));
+    } else {
+        dispatch(createNote(currentNotebook));
     }
-    dispatch(createNote(currentNotebook));
   };
 
   return (

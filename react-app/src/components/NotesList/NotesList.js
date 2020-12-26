@@ -84,7 +84,6 @@ const NotesList = () => {
                 noteTags.push(tags[id]);
             }
         });
-        console.log(noteTags)
         filteredNotesDiv.push(
             <Note key={note.id} note={note} tags={noteTags} />
         );
