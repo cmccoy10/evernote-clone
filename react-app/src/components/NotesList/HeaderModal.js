@@ -13,7 +13,6 @@ import { handleRenameNotebook } from "../../store/ducks/notebooks";
 // import { createNotebook } from "../../store/ducks/notebooks";
 
 const HeaderModal = ({ currentNotebookId, noteTitle, open, handleClose }) => {
-  console.log(currentNotebookId);
   const dispatch = useDispatch();
   const [title, setTitle] = useState(noteTitle);
   const [errors, setErrors] = useState([]);

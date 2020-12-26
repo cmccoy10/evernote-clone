@@ -29,7 +29,7 @@ export const logout = async () => {
   });
 
   window.location.href = "/login";
-  return await response.json();
+  return;
 };
 
 export const signUp = async (firstName, lastName, email, password) => {
