@@ -21,6 +21,16 @@ const useStyles = makeStyles((theme) => ({
       color: "white"
     },
   },
+  demoButton: {
+    width: "100%",
+    color: "white",
+    backgroundColor: "darkgrey",
+    "&:hover": {
+      backgroundColor: theme.palette.dark.main,
+      color: "white"
+    },
+    marginTop: "1em"
+  }
 }));
 
 const LoginForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
@@ -37,6 +47,16 @@ const LoginForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
       setAuthenticated(true);
     } else {
       setErrors(user.errors);
+    }
+  };
+
+  const demoLogin = async () => {
+    const user = await login("demo@aa.io", "password");
+    if (!user.errors) {
+        saveUserTostate(user);
+        setAuthenticated(true);
+    } else {
+        setErrors(user.errors);
     }
   };
 
@@ -84,6 +104,9 @@ const LoginForm = ({ authenticated, setAuthenticated, saveUserTostate }) => {
             />
             <Button className={classes.button} type="submit">
               Sign in
+            </Button>
+            <Button className={classes.demoButton} onClick={demoLogin}>
+              Demo
             </Button>
           </div>
 
