@@ -63,7 +63,6 @@ const useStyles = makeStyles(() => ({
     },
     noteFooter__newTagInput: {
         outline: 'none',
-        border: 'none',
         textDecoration: 'none',
         width: '100%',
         padding: '15px 15px',
@@ -73,7 +72,8 @@ const useStyles = makeStyles(() => ({
         fontSize: '14px',
         height: '100%',
         marginTop: '2px',
-        marginBottom: '0px !important'
+        marginBottom: '0px !important',
+        borderColor: "#e0e0e0"
     }
 }));
 
@@ -83,7 +83,7 @@ const NoteFooter = () => {
     const dispatch = useDispatch();
 
     const [name, setName] = useState('')
-    
+
     const notes = useSelector(state => state.notes)
     const allTags = useSelector(state => state.tags)
     const id = useSelector(state => state.currentNote)
@@ -120,7 +120,7 @@ const NoteFooter = () => {
             </div>
         )
     }
- 
+
 
     return (
         <div className={classes.noteFooter}>
