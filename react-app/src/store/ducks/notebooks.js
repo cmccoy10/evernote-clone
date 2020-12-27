@@ -75,6 +75,7 @@ export const handleDeleteNotebook = (notebookId) => async (dispatch) => {
       throw res;
     }
   } catch (err) {
+    console.log("error", err)
     const badRequest = await err.json();
     const errors = badRequest.errors;
     return {
@@ -163,7 +164,6 @@ export const setCurrentNoteAndNotebook = (index) => async (
   const notebook = notebooks[currentNotebookId];
 
   const nextCurrentNote = () => {
-    const initialNote = Object.values(notes)[0];
     if (Object.values(notes).length === 0) return null;
     return Object.values(notes).reduce((max, note) => {
       if (!max) return null;
@@ -174,10 +174,16 @@ export const setCurrentNoteAndNotebook = (index) => async (
       } else {
         return max;
       }
-    }, initialNote);
+    }, );
   };
 
-  const nextNote = nextCurrentNote();
+
+  let nextNote = nextCurrentNote();
+
+  if (nextNote.notebook_id !== currentNotebookId) {
+      nextNote = null;
+  }
+
   const id = nextNote ? nextNote.id : null;
   await dispatch(setCurrentNote(id));
 };
