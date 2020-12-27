@@ -19,7 +19,8 @@ const HeaderModal = ({ currentNotebookId, noteTitle, open, handleClose }) => {
   const updateTitle = (e) => {
     setTitle(e.target.value);
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const newNotebook = await dispatch(
       handleRenameNotebook(currentNotebookId, title)
     );
@@ -45,9 +46,9 @@ const HeaderModal = ({ currentNotebookId, noteTitle, open, handleClose }) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Rename notebook</DialogTitle>
-        <DialogContent>
-          <form>
+        <form onSubmit={handleSubmit}>
+          <DialogTitle id="form-dialog-title">Rename notebook</DialogTitle>
+          <DialogContent>
             <div>
               <label htmlFor="title">New Title</label>
             </div>
@@ -57,13 +58,13 @@ const HeaderModal = ({ currentNotebookId, noteTitle, open, handleClose }) => {
               value={title}
               onChange={updateTitle}
             />
-          </form>
-        </DialogContent>
-        <div className="form-errors">{errors}</div>
-        <DialogActions>
-          <Button onClick={handleCancel}>Cancel</Button>
-          <Button onClick={handleSubmit}>Save</Button>
-        </DialogActions>
+          </DialogContent>
+          <div className="form-errors">{errors}</div>
+          <DialogActions>
+            <Button onClick={handleCancel}>Cancel</Button>
+            <Button type="submit">Save</Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );

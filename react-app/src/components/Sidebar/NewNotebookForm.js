@@ -21,7 +21,8 @@ const NewNotebookForm = (props) => {
     setTitle(e.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const newNotebook = await dispatch(createNotebook(title));
     if (newNotebook && "errors" in newNotebook) {
       setErrors(newNotebook["errors"]);
@@ -47,7 +48,7 @@ const NewNotebookForm = (props) => {
       >
         <DialogTitle id="form-dialog-title">Create new notebook</DialogTitle>
         <DialogContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="title">Name</label>
             </div>
@@ -57,13 +58,14 @@ const NewNotebookForm = (props) => {
               value={title}
               onChange={updateTitle}
             />
+
+            <div className="form-errors">{errors}</div>
+            <DialogActions>
+              <Button onClick={handleCancel}>Cancel</Button>
+              <Button type="submit">Save</Button>
+            </DialogActions>
           </form>
         </DialogContent>
-        <div className="form-errors">{errors}</div>
-        <DialogActions>
-          <Button onClick={handleCancel}>Cancel</Button>
-          <Button onClick={handleSubmit}>Save</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );
