@@ -49,3 +49,27 @@
   margin: 10px 20px;
   font-weight: bold;
 }
+
+.social-links {
+  position: fixed;
+  bottom: 0;
+  margin-left: 5px;
+}
+
+.social-links div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.social-links a:hover {
+  color: white;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: #a6a6a6;
+}
+
+.contributer {
+  margin-left: 10px;
+}
