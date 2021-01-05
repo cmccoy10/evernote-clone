@@ -4,13 +4,13 @@ import UserInfo from "./UserInfo";
 import { Drawer, CssBaseline, Divider, List, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Add from "@material-ui/icons/Add";
+import GitHubIcon from "@material-ui/icons/GitHub";
 import AllNotes from "./AllNotes";
 import Notebooks from "./Notebooks";
 import Tags from "./Tags";
 import { createNote } from "../../store/ducks/notes";
 import { useDispatch, useSelector } from "react-redux";
-import TagsList from './TagsList'
-
+import TagsList from "./TagsList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +63,7 @@ const Sidebar = ({ setAuthenticated }) => {
     if (!currentNotebook) {
       dispatch(createNote(defaultNotebookId));
     } else {
-        dispatch(createNote(currentNotebook));
+      dispatch(createNote(currentNotebook));
     }
   };
 
@@ -94,6 +94,32 @@ const Sidebar = ({ setAuthenticated }) => {
           <AllNotes />
           <Notebooks />
           <Tags openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+          <div className="social-links">
+            <a target="_blank" href="https://github.com/cmccoy10">
+              <div>
+                <GitHubIcon />
+                <span className="contributer">Cole McCoy</span>
+              </div>
+            </a>
+            <a target="_blank" href="https://github.com/jessabels">
+              <div>
+                <GitHubIcon />
+                <span className="contributer">Jessica Abels</span>
+              </div>
+            </a>
+            <a target="_blank" href="https://github.com/wren1">
+              <div>
+                <GitHubIcon />
+                <span className="contributer">Wren McPherson</span>
+              </div>
+            </a>
+            <a target="_blank" href="https://github.com/anvarov">
+              <div>
+                <GitHubIcon />
+                <span className="contributer">Akmal Anvarov</span>
+              </div>
+            </a>
+          </div>
         </List>
         <Divider />
       </Drawer>
